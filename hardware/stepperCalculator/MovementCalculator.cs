@@ -7,6 +7,7 @@ namespace stepperCalculator
     public class MovementCalculator
     {
         private PrinterConfiguration _printerConfiguration;
+
         public MovementCalculator(PrinterConfiguration printerConfiguration)
         {
             _printerConfiguration = printerConfiguration;
@@ -15,7 +16,7 @@ namespace stepperCalculator
         public Movement CalculateX(double startPosition, double stop, double maxSpeedMmPerSec)
         {
             // calculate distance
-            var distance =  stop - startPosition;
+            var distance = stop - startPosition;
 
             var direction = distance > 0; // true forward
             // given speed
@@ -53,7 +54,7 @@ namespace stepperCalculator
             var stepsNumber = 0;
             double traveledDistance = 0;
             double timeBeforeStep = 0;
-            var accelerating= true;
+            var accelerating = true;
             while (accelerating)
             {
                 stepsNumber++;
@@ -81,35 +82,64 @@ namespace stepperCalculator
                 // step is finished
                 traveledDistance = distanceAfterStep;
                 timeBeforeStep = timeCaculatedFromStart;
-
             }
 
 
             var distanceToMoveWithMaxSpeed = distance - 2 * traveledDistance;
+
 
             // now we can do deceleration
             var deceleration = new List<StepData>();
             var decelerationStep = 0;
             foreach (var step in move.Steps)
             {
-                  var decStep = new StepData
-                  {
-                        DistanceAfterStep = distance -decelerationStep*_printerConfiguration.XStepsPerMM,
-                       StepTime = step.StepTime,
-                       StepNumber = -step.StepNumber,
-                      SpeedAfterMove = step.SpeedAfterMove,
-                      HeadPositionAfterStep = (stop - decelerationStep*_printerConfiguration.XStepsPerMM),
-                      TimeStamp = step.TimeStamp
+                var decStep = new StepData
+                {
+                    DistanceAfterStep = traveledDistance - decelerationStep / _printerConfiguration.XStepsPerMM,
+                    StepTime = step.StepTime,
+                    StepNumber = -step.StepNumber,
+                    SpeedAfterMove = step.SpeedAfterMove,
+                    HeadPositionAfterStep = (stop - decelerationStep / _printerConfiguration.XStepsPerMM),
+                    TimeStamp = step.TimeStamp
+                };
 
-                        };
-
-                deceleration.Insert(0,decStep);
+                deceleration.Insert(0, decStep);
 
                 decelerationStep++;
-
             }
 
-            move.Steps.Concat(deceleration);
+
+
+
+
+            /*
+             * s = v*t => t = s/v
+             */
+
+            var timeWithFullSpeed =  distanceToMoveWithMaxSpeed / speed;
+            var stepsCountWithMaxSpeed =(int) (distanceToMoveWithMaxSpeed * _printerConfiguration.XStepsPerMM);
+            var maxSpeedCycleTime = timeWithFullSpeed / stepsCountWithMaxSpeed;
+
+            for (int i = 1; i <= stepsCountWithMaxSpeed; i++)
+            {
+
+                var stepData = new StepData
+                {
+                    DistanceAfterStep = stepsNumber / _printerConfiguration.XStepsPerMM,
+                    HeadPositionAfterStep =
+                        (direction) ? stepsNumber / _printerConfiguration.XStepsPerMM + startPosition : startPosition - stepsNumber / _printerConfiguration.XStepsPerMM,
+                    StepTime = maxSpeedCycleTime,
+                    SpeedAfterMove = speed,
+                    StepNumber = stepsNumber
+                };
+
+                move.Steps.Add(stepData);
+                stepsNumber++;
+            }
+
+
+            move.Steps.AddRange(deceleration);
+
             return move;
         }
     }
