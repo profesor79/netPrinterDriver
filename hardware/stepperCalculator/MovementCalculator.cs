@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace stepperCalculator
 {
@@ -83,7 +85,31 @@ namespace stepperCalculator
             }
 
 
+            var distanceToMoveWithMaxSpeed = distance - 2 * traveledDistance;
 
+            // now we can do deceleration
+            var deceleration = new List<StepData>();
+            var decelerationStep = 0;
+            foreach (var step in move.Steps)
+            {
+                  var decStep = new StepData
+                  {
+                        DistanceAfterStep = distance -decelerationStep*_printerConfiguration.XStepsPerMM,
+                       StepTime = step.StepTime,
+                       StepNumber = -step.StepNumber,
+                      SpeedAfterMove = step.SpeedAfterMove,
+                      HeadPositionAfterStep = (stop - decelerationStep*_printerConfiguration.XStepsPerMM),
+                      TimeStamp = step.TimeStamp
+
+                        };
+
+                deceleration.Insert(0,decStep);
+
+                decelerationStep++;
+
+            }
+
+            move.Steps.Concat(deceleration);
             return move;
         }
     }
