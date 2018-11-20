@@ -77,7 +77,7 @@ namespace stepperCalculator
                     StepNumber = stepsNumber
                 };
 
-                move.Steps.Add(stepData);
+                move.HeadSteps.Add(stepData);
                 //Console.WriteLine($"HeadPositionAfterStep: {stepData.HeadPositionAfterStep} SpeedAfterMove: {stepData.SpeedAfterMove} StepTime:{stepData.StepTime}");
                 // step is finished
                 traveledDistance = distanceAfterStep;
@@ -91,7 +91,7 @@ namespace stepperCalculator
             // now we can do deceleration
             var deceleration = new List<StepData>();
             var decelerationStep = 0;
-            foreach (var step in move.Steps)
+            foreach (var step in move.HeadSteps)
             {
                 var decStep = new StepData
                 {
@@ -107,9 +107,6 @@ namespace stepperCalculator
 
                 decelerationStep++;
             }
-
-
-
 
 
             /*
@@ -133,12 +130,12 @@ namespace stepperCalculator
                     StepNumber = stepsNumber
                 };
 
-                move.Steps.Add(stepData);
+                move.BodySteps.Add(stepData);
                 stepsNumber++;
             }
 
 
-            move.Steps.AddRange(deceleration);
+            move.TailSteps.AddRange(deceleration);
 
             return move;
         }
