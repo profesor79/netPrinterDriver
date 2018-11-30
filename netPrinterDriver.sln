@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26124.0
+MinimumVisualStudioVersion = 15.0.26124.0
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "stepperCalculator", "hardware\stepperCalculator\stepperCalculator.csproj", "{0CF04F39-829C-4110-9F1F-4F2C7270C357}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "stepperCalculatorTests", "hardware\stepperCalculatorTests\stepperCalculatorTests.csproj", "{7CA943E1-178C-4C83-B6C1-5907F439F0A8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0CF04F39-829C-4110-9F1F-4F2C7270C357}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CF04F39-829C-4110-9F1F-4F2C7270C357}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CF04F39-829C-4110-9F1F-4F2C7270C357}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0CF04F39-829C-4110-9F1F-4F2C7270C357}.Debug|x64.Build.0 = Debug|Any CPU
+		{0CF04F39-829C-4110-9F1F-4F2C7270C357}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0CF04F39-829C-4110-9F1F-4F2C7270C357}.Debug|x86.Build.0 = Debug|Any CPU
+		{0CF04F39-829C-4110-9F1F-4F2C7270C357}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CF04F39-829C-4110-9F1F-4F2C7270C357}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CF04F39-829C-4110-9F1F-4F2C7270C357}.Release|x64.ActiveCfg = Release|Any CPU
+		{0CF04F39-829C-4110-9F1F-4F2C7270C357}.Release|x64.Build.0 = Release|Any CPU
+		{0CF04F39-829C-4110-9F1F-4F2C7270C357}.Release|x86.ActiveCfg = Release|Any CPU
+		{0CF04F39-829C-4110-9F1F-4F2C7270C357}.Release|x86.Build.0 = Release|Any CPU
+		{7CA943E1-178C-4C83-B6C1-5907F439F0A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CA943E1-178C-4C83-B6C1-5907F439F0A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CA943E1-178C-4C83-B6C1-5907F439F0A8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7CA943E1-178C-4C83-B6C1-5907F439F0A8}.Debug|x64.Build.0 = Debug|Any CPU
+		{7CA943E1-178C-4C83-B6C1-5907F439F0A8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7CA943E1-178C-4C83-B6C1-5907F439F0A8}.Debug|x86.Build.0 = Debug|Any CPU
+		{7CA943E1-178C-4C83-B6C1-5907F439F0A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CA943E1-178C-4C83-B6C1-5907F439F0A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CA943E1-178C-4C83-B6C1-5907F439F0A8}.Release|x64.ActiveCfg = Release|Any CPU
+		{7CA943E1-178C-4C83-B6C1-5907F439F0A8}.Release|x64.Build.0 = Release|Any CPU
+		{7CA943E1-178C-4C83-B6C1-5907F439F0A8}.Release|x86.ActiveCfg = Release|Any CPU
+		{7CA943E1-178C-4C83-B6C1-5907F439F0A8}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0CF04F39-829C-4110-9F1F-4F2C7270C357} = {8E3D0A25-0A0B-426E-B30B-B2BC6415A8C1}
+		{7CA943E1-178C-4C83-B6C1-5907F439F0A8} = {8E3D0A25-0A0B-426E-B30B-B2BC6415A8C1}
+	EndGlobalSection
+EndGlobal

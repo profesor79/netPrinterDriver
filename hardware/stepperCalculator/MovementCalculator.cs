@@ -55,11 +55,21 @@ namespace stepperCalculator
             double traveledDistance = 0;
             double timeBeforeStep = 0;
             var accelerating = true;
+            var acceleratedToMaxSpeed = true;
             while (accelerating)
             {
                 stepsNumber++;
 
                 var distanceAfterStep = stepsNumber / _printerConfiguration.XStepsPerMM;
+                // check if we need to brake
+                var fullDistanece = 2 * distanceAfterStep;
+                if (fullDistanece > distance)
+                {
+                    accelerating = false;
+                    acceleratedToMaxSpeed = false;
+                    continue;
+                }
+
                 var speedAfterDistance = Math.Sqrt(2 * _printerConfiguration.XMaxAcceleration * distanceAfterStep);
                 accelerating = speed >= speedAfterDistance;
 
@@ -113,6 +123,7 @@ namespace stepperCalculator
              * s = v*t => t = s/v
              */
 
+            var bodyMovementSpeed = acceleratedToMaxSpeed ? speed : deceleration[0].SpeedAfterMove;
             var timeWithFullSpeed =  distanceToMoveWithMaxSpeed / speed;
             var stepsCountWithMaxSpeed =(int) (distanceToMoveWithMaxSpeed * _printerConfiguration.XStepsPerMM);
             var maxSpeedCycleTime = timeWithFullSpeed / stepsCountWithMaxSpeed;
@@ -126,7 +137,7 @@ namespace stepperCalculator
                     HeadPositionAfterStep =
                         (direction) ? stepsNumber / _printerConfiguration.XStepsPerMM + startPosition : startPosition - stepsNumber / _printerConfiguration.XStepsPerMM,
                     StepTime = maxSpeedCycleTime,
-                    SpeedAfterMove = speed,
+                    SpeedAfterMove = bodyMovementSpeed,
                     StepNumber = stepsNumber
                 };
 
