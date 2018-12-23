@@ -5,7 +5,7 @@ using Xunit;
 
 namespace stepperCalculatorTests
 {
-    public class UnitTest1
+    public class AxisMovementCalculatorTests
     {
 
         [Fact]
@@ -14,18 +14,18 @@ namespace stepperCalculatorTests
             // arange
             var stepsMM = 100;
             var distance = 20;
-            var sut = new MovementCalculator(new PrinterConfiguration
+            var sut = new MovementCalculator(new AxisConfiguration
             {
-                XMaxAcceleration = 2,
-                XStepsPerMM = stepsMM,
-                XMaxSpeedPerMM = 1
+                MaxAcceleration = 2,
+                StepsPerMM = stepsMM,
+                MaxSpeedPerMM = 1
             });
 
             var expectedStepsCount = distance*stepsMM;
 
 
             // act
-            var steps = sut.CalculateX(0, distance, 50);
+            var steps = sut.CalculateSteps(0, distance, 50);
             var actualStepsContu = steps.TailSteps.Count + steps.BodySteps.Count + steps.HeadSteps.Count;
 
             // assert
@@ -41,18 +41,18 @@ namespace stepperCalculatorTests
             // arange
             var stepsMM = 100;
             var distance = 20;
-            var sut = new MovementCalculator(new PrinterConfiguration
+            var sut = new MovementCalculator(new AxisConfiguration
             {
-                XMaxAcceleration = 2,
-                XStepsPerMM = stepsMM,
-                XMaxSpeedPerMM = 50
+                MaxAcceleration = 2,
+                StepsPerMM = stepsMM,
+                MaxSpeedPerMM = 50
             });
 
             var expectedStepsCount = distance*stepsMM;
 
 
             // act
-            var steps = sut.CalculateX(0, distance, 50);
+            var steps = sut.CalculateSteps(0, distance, 50);
             var actualStepsContu = steps.TailSteps.Count + steps.BodySteps.Count + steps.HeadSteps.Count;
 
             // assert
@@ -69,18 +69,18 @@ namespace stepperCalculatorTests
             // arange
             var stepsMM = 2000;
             var distance = 20;
-            var sut = new MovementCalculator(new PrinterConfiguration
+            var sut = new MovementCalculator(new AxisConfiguration
             {
-                XMaxAcceleration = 2,
-                XStepsPerMM = stepsMM,
-                XMaxSpeedPerMM = 50
+                MaxAcceleration = 2,
+                StepsPerMM = stepsMM,
+                MaxSpeedPerMM = 50
             });
 
             var expectedStepsCount = distance*stepsMM;
 
 
             // act
-            var steps = sut.CalculateX(0, distance, 50);
+            var steps = sut.CalculateSteps(0, distance, 50);
             var actualStepsContu = steps.TailSteps.Count + steps.BodySteps.Count + steps.HeadSteps.Count;
 
             // assert
@@ -97,18 +97,18 @@ namespace stepperCalculatorTests
             // arange
             var stepsMM = 1;
             var distance = 23;
-            var sut = new MovementCalculator(new PrinterConfiguration
+            var sut = new MovementCalculator(new AxisConfiguration
             {
-                XMaxAcceleration = 2,
-                XStepsPerMM = stepsMM,
-                XMaxSpeedPerMM = 50
+                MaxAcceleration = 2,
+                StepsPerMM = stepsMM,
+                MaxSpeedPerMM = 50
             });
 
             var expectedStepsCount = distance*stepsMM;
 
 
             // act
-            var steps = sut.CalculateX(0, distance, 50);
+            var steps = sut.CalculateSteps(0, distance, 50);
             var actualStepsContu = steps.TailSteps.Count + steps.BodySteps.Count + steps.HeadSteps.Count;
 
             // assert
@@ -132,18 +132,18 @@ namespace stepperCalculatorTests
             var stepsMM = 1;
             var distance = 1000;
             var givenSpeed = 50;
-            var sut = new MovementCalculator(new PrinterConfiguration
+            var sut = new MovementCalculator(new AxisConfiguration
             {
-                XMaxAcceleration = 200,
-                XStepsPerMM = stepsMM,
-                XMaxSpeedPerMM = givenSpeed
+                MaxAcceleration = 200,
+                StepsPerMM = stepsMM,
+                MaxSpeedPerMM = givenSpeed
             });
 
             var expectedStepsCount = distance*stepsMM;
 
 
             // act
-            var steps = sut.CalculateX(0, distance, 50);
+            var steps = sut.CalculateSteps(0, distance, 50);
             var actualStepsContu = steps.TailSteps.Count + steps.BodySteps.Count + steps.HeadSteps.Count;
 
             // assert

@@ -7,13 +7,54 @@ namespace stepperCalculator
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            var c = new MovementCalculator(new PrinterConfiguration());
-            var steps = c.CalculateX(0, 100, 15);
-            foreach (var stepData in steps.BodySteps)
+            var xAxisCalculator = new MovementCalculator(new AxisConfiguration());
+            var stepsX = xAxisCalculator.CalculateSteps(0, 100, 15);
+
+            // calclateTotalTime
+            var timeX = 0.00;
+            foreach (var step in stepsX.HeadSteps)
             {
-                Console.WriteLine($" StepNumber:{stepData.StepNumber} DistanceAfterStep: {stepData.DistanceAfterStep:0.000} HeadPositionAfterStep: {stepData.HeadPositionAfterStep:0.000} SpeedAfterMove: {stepData.SpeedAfterMove:0.000} StepTime:{stepData.StepTime:0.0000000}");
+                timeX += step.StepTime;
             }
 
+            foreach (var step in stepsX.BodySteps)
+            {
+                timeX += step.StepTime;
+            }
+
+            foreach (var step in stepsX.TailSteps)
+            {
+                timeX += step.StepTime;
+
+            }
+
+            var yAxisCalculator = new MovementCalculator(new AxisConfiguration
+            {
+             MaxAcceleration   = 500,
+                MaxSpeedPerMM = 300
+            });
+
+            var stepsY = yAxisCalculator.CalculateSteps(34, 300, 300);
+            var timeY = 0.00;
+
+            foreach (var step in stepsY.HeadSteps)
+            {
+                timeY += step.StepTime;
+            }
+
+            foreach (var step in stepsY.BodySteps)
+            {
+                timeY += step.StepTime;
+            }
+
+            foreach (var step in stepsY.TailSteps)
+            {
+                timeY += step.StepTime;
+
+            }
+
+            Console.WriteLine($"TravelTimeX: {timeX}");
+            Console.WriteLine($"TravelTimeY: {timeY}");
             Console.WriteLine("done");
         }
     }
