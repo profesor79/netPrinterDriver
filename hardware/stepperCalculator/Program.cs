@@ -55,6 +55,11 @@ namespace stepperCalculator
 
             Console.WriteLine($"TravelTimeX: {timeX}");
             Console.WriteLine($"TravelTimeY: {timeY}");
+
+            var steps = stepsX.BodySteps.Count+stepsX.HeadSteps.Count+stepsX.TailSteps.Count;
+            var steps2 = stepsY.BodySteps.Count+stepsY.HeadSteps.Count+stepsY.TailSteps.Count;
+            System.Console.WriteLine(steps);
+            System.Console.WriteLine(steps2);
             Console.WriteLine("done");
         }
     }
