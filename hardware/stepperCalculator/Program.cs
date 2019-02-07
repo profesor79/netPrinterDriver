@@ -25,7 +25,7 @@ namespace stepperCalculator
             {
                 MaxAcceleration   = 15,
                 MaxSpeedPerMM = 20,
-                StepsPerMM = 400
+                StepsPerMM = 1000
             });
 
             var stepsE = eAxisCalculator.CalculateSteps(3.023, 5.2130, 12);
