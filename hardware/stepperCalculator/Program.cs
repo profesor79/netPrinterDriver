@@ -28,7 +28,7 @@ namespace stepperCalculator
                 StepsPerMM = 400
             });
 
-            var stepsE = yAxisCalculator.CalculateSteps(3.023, 5.2130, 12);
+            var stepsE = eAxisCalculator.CalculateSteps(3.023, 5.2130, 12);
 
 
 
