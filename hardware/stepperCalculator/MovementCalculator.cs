@@ -107,6 +107,8 @@ namespace stepperCalculator
                 _move.BodySteps.Add(stepData);
                 _stepsNumber++;
             }
+
+            _move.TotalTime += maxSpeedCycleTime*stepsCountWithMaxSpeed;
         }
 
         private List<StepData> DecelarationStepData(double stop)
@@ -126,7 +128,7 @@ namespace stepperCalculator
                 };
 
                 deceleration.Insert(0, decStep);
-
+                _move.TotalTime += step.StepTime;
                 decelerationStep++;
             }
 
@@ -169,7 +171,7 @@ namespace stepperCalculator
                 SpeedAfterMove = speedAfterDistance,
                 StepNumber = _stepsNumber
             };
-
+            _move.TotalTime += stepData.StepTime;
             move.HeadSteps.Add(stepData);
             //Console.WriteLine($"HeadPositionAfterStep: {stepData.HeadPositionAfterStep} SpeedAfterMove: {stepData.SpeedAfterMove} StepTime:{stepData.StepTime}");
             // step is finished

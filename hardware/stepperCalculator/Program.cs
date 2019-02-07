@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace stepperCalculator
 {
@@ -10,136 +11,43 @@ namespace stepperCalculator
             var xAxisCalculator = new MovementCalculator(new AxisConfiguration());
             var stepsX = xAxisCalculator.CalculateSteps(0, 100, 15);
 
-            // calclateTotalTime
-            var timeX = 0.00;
-            foreach (var step in stepsX.HeadSteps)
-            {
-                timeX += step.StepTime;
-            }
+ var yAxisCalculator = new MovementCalculator(new AxisConfiguration
+ {
+     MaxAcceleration   = 500,
+     MaxSpeedPerMM = 300
+ });
 
-            foreach (var step in stepsX.BodySteps)
-            {
-                timeX += step.StepTime;
-            }
+ var stepsY = yAxisCalculator.CalculateSteps(34, 300, 300);
 
-            foreach (var step in stepsX.TailSteps)
-            {
-                timeX += step.StepTime;
 
-            }
 
-            var yAxisCalculator = new MovementCalculator(new AxisConfiguration
+            var eAxisCalculator = new MovementCalculator(new AxisConfiguration
             {
-             MaxAcceleration   = 500,
-                MaxSpeedPerMM = 300
+                MaxAcceleration   = 15,
+                MaxSpeedPerMM = 20,
+                StepsPerMM = 400
             });
 
-            var stepsY = yAxisCalculator.CalculateSteps(34, 300, 300);
-            var timeY = 0.00;
-
-            foreach (var step in stepsY.HeadSteps)
-            {
-                timeY += step.StepTime;
-            }
-
-            foreach (var step in stepsY.BodySteps)
-            {
-                timeY += step.StepTime;
-            }
-
-            foreach (var step in stepsY.TailSteps)
-            {
-                timeY += step.StepTime;
-
-            }
-
-            Console.WriteLine($"TravelTimeX: {timeX}");
-        Console.WriteLine($"TravelTimeY: {timeY}");
+            var stepsE = yAxisCalculator.CalculateSteps(3.023, 5.2130, 12);
 
 
-        Console.WriteLine($"Syncing times");
-   
-  if(timeX > timeY){
-var factor = timeX/timeY;
 
- foreach (var step in stepsY.HeadSteps)
-            {
-                step.StepTime = factor * step.StepTime;
-            }
+            Console.WriteLine(stepsX.TotalTime);
+            Console.WriteLine(stepsY.TotalTime);
+            Console.WriteLine(stepsE.TotalTime);
 
-            foreach (var step in stepsY.BodySteps)
-            {
-                 step.StepTime = factor * step.StepTime;
-            }
-
-            foreach (var step in stepsY.TailSteps)
-            {
-                 step.StepTime = factor * step.StepTime;
-
-            }
+            var times = new[] {stepsE.TotalTime, stepsX.TotalTime, stepsY.TotalTime};
+            var maxTime = times.Max();
+            Console.WriteLine(maxTime);
+            stepsE.SpeedFactor = maxTime / stepsE.TotalTime;
+            stepsX.SpeedFactor = maxTime / stepsX.TotalTime;
+            stepsY.SpeedFactor = maxTime / stepsY.TotalTime;
 
 
-  } else{
+            Console.WriteLine(stepsX.SpeedFactor);
+            Console.WriteLine(stepsY.SpeedFactor);
+            Console.WriteLine(stepsE.SpeedFactor);
 
-  }
-// calclateTotalTime
-             timeX = 0.00;
-            foreach (var step in stepsX.HeadSteps)
-            {
-                timeX += step.StepTime;
-            }
-
-            foreach (var step in stepsX.BodySteps)
-            {
-                timeX += step.StepTime;
-            }
-
-            foreach (var step in stepsX.TailSteps)
-            {
-                timeX += step.StepTime;
-
-            }
-
-
-           timeY = 0.00;
-
-            foreach (var step in stepsY.HeadSteps)
-            {
-                timeY += step.StepTime;
-            }
-
-            foreach (var step in stepsY.BodySteps)
-            {
-                timeY += step.StepTime;
-            }
-
-            foreach (var step in stepsY.TailSteps)
-            {
-                timeY += step.StepTime;
-
-            }
-
-            Console.WriteLine($"TravelTimeX: {timeX}");
-            Console.WriteLine($"TravelTimeY: {timeY}");
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-            Console.WriteLine("done");
         }
     }
 }

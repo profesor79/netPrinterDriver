@@ -10,5 +10,7 @@ namespace stepperCalculator
         public float  StartPoint { get; set; }
         public float  EndPoint { get; set; }
         public int StepNumber { get; set; }
+        public double TotalTime { get; set; }
+        public double SpeedFactor { get; set; }
     }
 }
