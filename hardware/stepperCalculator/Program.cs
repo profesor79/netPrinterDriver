@@ -11,26 +11,23 @@ namespace stepperCalculator
             var xAxisCalculator = new MovementCalculator(new AxisConfiguration());
             var stepsX = xAxisCalculator.CalculateSteps(0, 100, 15);
 
- var yAxisCalculator = new MovementCalculator(new AxisConfiguration
- {
-     MaxAcceleration   = 500,
-     MaxSpeedPerMM = 300
- });
+            var yAxisCalculator = new MovementCalculator(new AxisConfiguration
+            {
+                MaxAcceleration = 500,
+                MaxSpeedPerMM = 300
+            });
 
- var stepsY = yAxisCalculator.CalculateSteps(34, 300, 300);
-
+            var stepsY = yAxisCalculator.CalculateSteps(34, 300, 300);
 
 
             var eAxisCalculator = new MovementCalculator(new AxisConfiguration
             {
-                MaxAcceleration   = 15,
+                MaxAcceleration = 15,
                 MaxSpeedPerMM = 20,
                 StepsPerMM = 1000
             });
 
             var stepsE = eAxisCalculator.CalculateSteps(3.023, 5.2130, 12);
-
-
 
             Console.WriteLine(stepsX.TotalTime);
             Console.WriteLine(stepsY.TotalTime);
@@ -43,11 +40,9 @@ namespace stepperCalculator
             stepsX.SpeedFactor = maxTime / stepsX.TotalTime;
             stepsY.SpeedFactor = maxTime / stepsY.TotalTime;
 
-
             Console.WriteLine(stepsX.SpeedFactor);
             Console.WriteLine(stepsY.SpeedFactor);
             Console.WriteLine(stepsE.SpeedFactor);
-
         }
     }
 }
