@@ -108,7 +108,7 @@ namespace stepperCalculator
                 _stepsNumber++;
             }
 
-            _move.TotalTime += maxSpeedCycleTime*stepsCountWithMaxSpeed;
+            _move.TotalTime +=	 maxSpeedCycleTime*stepsCountWithMaxSpeed;
         }
 
         private List<StepData> DecelarationStepData(double stop)
