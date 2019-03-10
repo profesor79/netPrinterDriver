@@ -12,5 +12,6 @@ namespace stepperCalculator
         public int StepNumber { get; set; }
         public double TotalTime { get; set; }
         public double SpeedFactor { get; set; }
+        public bool Direction { get; set; }
     }
 }

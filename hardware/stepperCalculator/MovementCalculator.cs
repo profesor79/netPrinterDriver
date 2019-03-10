@@ -11,7 +11,7 @@ namespace stepperCalculator
         private double _traveledDistance;
         private double _timeBeforeStep;
         private bool _acceleratedToMaxSpeed;
-        private bool _direction;
+
         private Movement _move = new Movement();
         private double _speed;
         private double _distance;
@@ -24,9 +24,23 @@ namespace stepperCalculator
 
         public Movement CalculateSteps(double startPosition, double stop, double maxSpeedMmPerSec)
         {
+            ResetValues();
+            Console.WriteLine($"calculating for: startPosition:{startPosition}, stop:{stop}, maxSpeedMmPerSec:{maxSpeedMmPerSec}");
+
+
             // calculate distance
             _distance = stop - startPosition;
-            _direction = _distance > 0; // true forward
+            var tolerance = 0.0000001;
+            if (Math.Abs(_distance) < tolerance)
+            {
+                return _move;
+            }
+
+            _move.Direction = _distance > 0; // true forward
+
+
+
+
             // given speed
             // max printer speed
             _speed = maxSpeedMmPerSec > _axisConf.MaxSpeedPerMM
@@ -55,12 +69,12 @@ namespace stepperCalculator
 
 
             // as we know distance traveled to get full speed, then we can calculate step than we need to go
-            ResetValues();
+
 
             var accelerating = true;
             while (accelerating)
             {
-                accelerating = Accelerating(startPosition, _distance, _speed, _direction, _move);
+                accelerating = Accelerating(startPosition, _distance, _speed, _move.Direction, _move);
             }
 
             // now we can do deceleration
@@ -79,6 +93,18 @@ namespace stepperCalculator
             _traveledDistance = 0;
             _timeBeforeStep = 0;
             _acceleratedToMaxSpeed = true;
+
+
+
+
+
+
+
+
+
+
+        _speed = 0;
+         _distance = 0;
         }
 
         private void CalculateBodySteps(double startPosition, double decelerationStepsSpeedAfterMove)
@@ -96,7 +122,7 @@ namespace stepperCalculator
                 {
                     DistanceAfterStep = _stepsNumber / _axisConf.StepsPerMM,
                     HeadPositionAfterStep =
-                        (_direction)
+                        (_move.Direction)
                             ? _stepsNumber / _axisConf.StepsPerMM + startPosition
                             : startPosition - _stepsNumber / _axisConf.StepsPerMM,
                     StepTime = maxSpeedCycleTime,

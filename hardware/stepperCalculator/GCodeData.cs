@@ -9,8 +9,8 @@ namespace stepperCalculator
             {"X", -90000},
             {"Y", -90000},
             {"Z", -90000},
-            {"E0", -90000},
-            {"E1", -90000},
+            {"E", -90000},
+
         };
 
         public GCodeData Clone()
