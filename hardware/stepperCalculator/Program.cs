@@ -9,7 +9,8 @@ namespace stepperCalculator
         private static MovementCalculator _yAxisCalculator;
         private static MovementCalculator _eAxisCalculator;
         private static MovementCalculator _xAxisCalculator;
-        private static  List<IPrinterCommand> _commandsList = new List<IPrinterCommand>();
+        private static List<IPrinterCommand> _commandsList = new List<IPrinterCommand>();
+
         static void Main(string[] args)
         {
             InitializeAxes();
@@ -30,7 +31,8 @@ namespace stepperCalculator
                 Console.WriteLine("-------------");
                 var commands = line.Split(";")[0].Split(" ");
 
-                if (commands[0].StartsWith("M")){
+                if (commands[0].StartsWith("M"))
+                {
                     ProcesMachineRelatedCommand(commands);
                 }
 
@@ -53,7 +55,7 @@ namespace stepperCalculator
 
                 var prev = gdata.Clone();
 
-                if (commands[0] == "G01" ||commands[0] == "G1")
+                if (commands[0] == "G01" || commands[0] == "G1")
                 {
                     Console.WriteLine(line);
                     foreach (var c in commands)
@@ -143,36 +145,10 @@ namespace stepperCalculator
             }
         }
 
-        static void Aaa()
-        {
-
-
-
-
-
-             var stepsX = _xAxisCalculator.CalculateSteps(0,100, 15);
-            var stepsY = _yAxisCalculator.CalculateSteps(34, 300, 300);
-            var stepsE = _eAxisCalculator.CalculateSteps(3.023, 5.2130, 12);
-
-            Console.WriteLine(stepsX.TotalTime);
-            Console.WriteLine(stepsY.TotalTime);
-            Console.WriteLine(stepsE.TotalTime);
-
-            var times = new[] {stepsE.TotalTime, stepsX.TotalTime, stepsY.TotalTime};
-            var maxTime = times.Max();
-            Console.WriteLine(maxTime);
-            stepsE.SpeedFactor = maxTime / stepsE.TotalTime;
-            stepsX.SpeedFactor = maxTime / stepsX.TotalTime;
-            stepsY.SpeedFactor = maxTime / stepsY.TotalTime;
-
-            Console.WriteLine(stepsX.SpeedFactor);
-            Console.WriteLine(stepsY.SpeedFactor);
-            Console.WriteLine(stepsE.SpeedFactor);
-        }
-
         private static void InitializeAxes()
         {
-            _xAxisCalculator = new MovementCalculator(new AxisConfiguration{
+            _xAxisCalculator = new MovementCalculator(new AxisConfiguration
+            {
                 MaxAcceleration = 500,
                 MaxSpeedPerMM = 300,
                 StepsPerMM = 1000
