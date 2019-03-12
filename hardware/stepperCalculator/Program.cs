@@ -9,11 +9,10 @@ namespace stepperCalculator
         private static MovementCalculator _yAxisCalculator;
         private static MovementCalculator _eAxisCalculator;
         private static MovementCalculator _xAxisCalculator;
-
+        private static  List<IPrinterCommand> _commandsList = new List<IPrinterCommand>();
         static void Main(string[] args)
         {
             InitializeAxes();
-            var movementDatat = new List<MoveData>();
             var reader = new FileReader();
             var lines = reader.Readfile();
 
@@ -24,9 +23,10 @@ namespace stepperCalculator
 
             var noHomeSkip = true;
             var gdata = new GCodeData();
-
+            var lineCounter = 1;
             foreach (var line in lines)
             {
+                Console.WriteLine($"line {lineCounter++} from {lines.Count}");
                 Console.WriteLine("-------------");
                 var commands = line.Split(";")[0].Split(" ");
 
@@ -37,17 +37,17 @@ namespace stepperCalculator
                 if (commands[0] == "G28")
                 {
                     Console.WriteLine("executing homing....");
-                    gdata.Coordinates["X"] = 0.0;
-                    gdata.Coordinates["Y"] = 0.0;
-                    gdata.Coordinates["Z"] = 0.0;
-                    gdata.Coordinates["E"] = 0.0;
+                    gdata.Coordinates[PrinterAxis.X] = 0.0;
+                    gdata.Coordinates[PrinterAxis.Y] = 0.0;
+                    gdata.Coordinates[PrinterAxis.Z] = 0.0;
+                    gdata.Coordinates[PrinterAxis.E] = 0.0;
                     noHomeSkip = false;
                 }
 
                 if (noHomeSkip)
                 {
                     // cannot move printer before home executed;
-                    Console.WriteLine("no home exectued");
+                    Console.WriteLine("no home executed");
                     continue;
                 }
 
@@ -60,55 +60,78 @@ namespace stepperCalculator
                     {
                         if (c.Trim().StartsWith("X"))
                         {
-                            gdata.Coordinates["X"] = double.Parse(c.Replace("X", string.Empty));
+                            gdata.Coordinates[PrinterAxis.X] = double.Parse(c.Replace("X", string.Empty));
                         }
 
                         if (c.Trim().StartsWith("Y"))
                         {
-                            gdata.Coordinates["Y"] = double.Parse(c.Replace("Y", string.Empty));
+                            gdata.Coordinates[PrinterAxis.Y] = double.Parse(c.Replace("Y", string.Empty));
                         }
 
                         if (c.Trim().StartsWith("Z"))
                         {
-                            gdata.Coordinates["Z"] = double.Parse(c.Replace("Z", string.Empty));
+                            gdata.Coordinates[PrinterAxis.Z] = double.Parse(c.Replace("Z", string.Empty));
                         }
 
                         if (c.Trim().StartsWith("E"))
                         {
-                            gdata.Coordinates["E"] = double.Parse(c.Replace("E", string.Empty));
-                        }
-
-                        InitializeAxes();
-                        var stepsX = _xAxisCalculator.CalculateSteps(prev.Coordinates["X"],gdata.Coordinates["X"], 200);
-                        var stepsY = _yAxisCalculator.CalculateSteps(prev.Coordinates["Y"],gdata.Coordinates["Y"], 200);
-                        var stepsZ = _yAxisCalculator.CalculateSteps(prev.Coordinates["Z"],gdata.Coordinates["Z"], 200);
-                        var stepsE = _eAxisCalculator.CalculateSteps(prev.Coordinates["E"],gdata.Coordinates["E"], 200);
-
-                        var times = new[] {stepsE.TotalTime, stepsX.TotalTime, stepsY.TotalTime, stepsZ.TotalTime};
-                        var maxTime = times.Max();
-
-                        stepsE.SpeedFactor = maxTime / stepsE.TotalTime;
-                        stepsZ.SpeedFactor = maxTime / stepsZ.TotalTime;
-                        stepsX.SpeedFactor = maxTime / stepsX.TotalTime;
-                        stepsY.SpeedFactor = maxTime / stepsY.TotalTime;
-
-                        var moveData = new MoveData(stepsE, stepsX, stepsY, stepsZ);
-                        movementDatat.Add(moveData);
-
-
-                        foreach (var cor in gdata.Coordinates)
-                        {
-                            Console.WriteLine($"{cor.Key}: {cor.Value}");
+                            gdata.Coordinates[PrinterAxis.E] = double.Parse(c.Replace("E", string.Empty));
                         }
                     }
 
-
-
-
+                    CalculateMovement(prev, gdata);
                 }
             }
 
-            Console.WriteLine($"move recorded: {movementDatat.Count}");
+            Console.WriteLine($"move recorded: {_commandsList.Count}");
+        }
+
+        private static void CalculateMovement(GCodeData prev, GCodeData gdata)
+        {
+            InitializeAxes();
+            var stpsDict = new Dictionary<PrinterAxis, Movement>();
+            var stepsX =
+                _xAxisCalculator.CalculateSteps(prev.Coordinates[PrinterAxis.X], gdata.Coordinates[PrinterAxis.X], 200);
+
+            var stepsY =
+                _yAxisCalculator.CalculateSteps(prev.Coordinates[PrinterAxis.Y], gdata.Coordinates[PrinterAxis.Y], 200);
+
+            var stepsZ =
+                _yAxisCalculator.CalculateSteps(prev.Coordinates[PrinterAxis.Z], gdata.Coordinates[PrinterAxis.Z], 200);
+
+            var stepsE =
+                _eAxisCalculator.CalculateSteps(prev.Coordinates[PrinterAxis.E], gdata.Coordinates[PrinterAxis.E], 200);
+
+
+            var times = new[] {stepsE.TotalTime, stepsX.TotalTime, stepsY.TotalTime, stepsZ.TotalTime};
+            var maxTime = times.Max();
+
+            stepsE.SpeedFactor = maxTime / stepsE.TotalTime;
+            stepsZ.SpeedFactor = maxTime / stepsZ.TotalTime;
+            stepsX.SpeedFactor = maxTime / stepsX.TotalTime;
+            stepsY.SpeedFactor = maxTime / stepsY.TotalTime;
+
+            if (stepsX.TotalTime != 0)
+            {
+                stpsDict.Add(PrinterAxis.X, stepsX);
+            }
+
+            if (stepsY.TotalTime != 0)
+            {
+                stpsDict.Add(PrinterAxis.Y, stepsY);
+            }
+
+            if (stepsZ.TotalTime != 0)
+            {
+                stpsDict.Add(PrinterAxis.Z, stepsZ);
+            }
+
+            if (stepsE.TotalTime != 0)
+            {
+                stpsDict.Add(PrinterAxis.E, stepsE);
+            }
+
+            _commandsList.Add(new MoveCommand(stpsDict));
         }
 
         private static void ProcesMachineRelatedCommand(string[] commands)
@@ -124,7 +147,7 @@ namespace stepperCalculator
         {
 
 
-            InitializeAxes();
+
 
 
              var stepsX = _xAxisCalculator.CalculateSteps(0,100, 15);
@@ -169,22 +192,6 @@ namespace stepperCalculator
                 MaxSpeedPerMM = 20,
                 StepsPerMM = 1000
             });
-        }
-    }
-
-    internal class MoveData
-    {
-        public Movement StepsE { get; }
-        public Movement StepsX { get; }
-        public Movement StepsY { get; }
-        public Movement StepsZ { get; }
-
-        public MoveData(Movement stepsE, Movement stepsX, Movement stepsY, Movement stepsZ)
-        {
-            StepsE = stepsE;
-            StepsX = stepsX;
-            StepsY = stepsY;
-            StepsZ = stepsZ;
         }
     }
 }

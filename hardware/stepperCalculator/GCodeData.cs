@@ -4,12 +4,12 @@ namespace stepperCalculator
 {
     public class GCodeData
     {
-        public  Dictionary<string, double> Coordinates = new Dictionary<string, double>
+        public  Dictionary<PrinterAxis, double> Coordinates = new Dictionary<PrinterAxis, double>
         {
-            {"X", -90000},
-            {"Y", -90000},
-            {"Z", -90000},
-            {"E", -90000},
+            {PrinterAxis.X, -90000},
+            {PrinterAxis.Y, -90000},
+            {PrinterAxis.Z, -90000},
+            {PrinterAxis.E, -90000},
 
         };
 
