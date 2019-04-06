@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace stepperCalculator
 {
@@ -86,6 +87,7 @@ namespace stepperCalculator
             }
 
             Console.WriteLine($"move recorded: {_commandsList.Count}");
+            System.IO.File.WriteAllText("output.json", JsonConvert.SerializeObject(_commandsList, Formatting.Indented));
         }
 
         private static void CalculateMovement(GCodeData prev, GCodeData gdata)
@@ -151,7 +153,7 @@ namespace stepperCalculator
             {
                 MaxAcceleration = 500,
                 MaxSpeedPerMM = 300,
-                StepsPerMM = 1000
+                StepsPerMM = 1
             });
 
 
@@ -159,14 +161,14 @@ namespace stepperCalculator
             {
                 MaxAcceleration = 500,
                 MaxSpeedPerMM = 300,
-                StepsPerMM = 1000
+                StepsPerMM = 1
             });
 
             _eAxisCalculator = new MovementCalculator(new AxisConfiguration
             {
                 MaxAcceleration = 15,
                 MaxSpeedPerMM = 20,
-                StepsPerMM = 1000
+                StepsPerMM = 4
             });
         }
     }

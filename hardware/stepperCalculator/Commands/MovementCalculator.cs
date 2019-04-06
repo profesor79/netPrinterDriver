@@ -16,6 +16,7 @@ namespace stepperCalculator
         private Movement _move = new Movement();
         private double _speed;
         private double _distance;
+        private bool _onlyOneStep;
 
 
         public MovementCalculator(AxisConfiguration axisConf)
@@ -32,7 +33,9 @@ namespace stepperCalculator
             // calculate distance
             _distance = stop - startPosition;
             Console.WriteLine(_distance);
-            var tolerance = 0.0000001;
+
+            // set minimum step value as a tolerance
+            var tolerance = 1 / _axisConf.StepsPerMM;
             if (Math.Abs(_distance) < tolerance)
             {
                 Console.WriteLine("no move");
@@ -76,14 +79,20 @@ namespace stepperCalculator
             {
                 accelerating = Accelerating(startPosition, _distance, _speed, _move.Direction, _move);
             }
-            Debug.Assert(0 < _move.HeadSteps.Count);
+
+// as we could have a edge case where only one step need to be added,
+// accelarating method need to give a flag to stop processing
+
+
+            Debug.Assert(0 < _move.HeadSteps.Count, $"0 < _move.HeadSteps.Count {_move.HeadSteps.Count}",$"calculating for: startPosition:{startPosition}, stop:{stop}, maxSpeedMmPerSec:{maxSpeedMmPerSec}, steps/mm {_axisConf.StepsPerMM}, min step: {1/_axisConf.StepsPerMM}, distance to travel: {stop-startPosition}" );
 
             // now we can do deceleration
-            var decelerationSteps = DecelarationStepData(stop);
-
-
-            CalculateBodySteps(startPosition, decelerationSteps[0].SpeedAfterMove);
-            _move.TailSteps.AddRange(decelerationSteps);
+            if (!_onlyOneStep) // prevent creating deceleration steps when only one need to be added to the move
+            {
+                var decelerationSteps = DecelarationStepData(stop);
+                CalculateBodySteps(startPosition, decelerationSteps[0].SpeedAfterMove);
+                _move.TailSteps.AddRange(decelerationSteps);
+            }
 
             return _move;
         }
@@ -165,14 +174,7 @@ namespace stepperCalculator
             _stepsNumber++;
 
             var distanceAfterStep = _stepsNumber / _axisConf.StepsPerMM;
-            // check if we need to brake
-            var fullDistanece = 2 * distanceAfterStep;
-            if (fullDistanece > Math.Abs(distance))
-            {
-                accelerating = false;
-                _acceleratedToMaxSpeed = false;
-                return accelerating;
-            }
+
 
             var speedAfterDistance = Math.Sqrt(2 * _axisConf.MaxAcceleration * distanceAfterStep);
             accelerating = speed >= speedAfterDistance;
@@ -190,10 +192,28 @@ namespace stepperCalculator
                 SpeedAfterMove = speedAfterDistance,
                 StepNumber = _stepsNumber
             };
+
+            // check if we need to brake
+            var fullDistance = 2 * distanceAfterStep;
+            if (fullDistance > Math.Abs(distance))
+            {
+                accelerating = false;
+                _acceleratedToMaxSpeed = false;
+
+                // if we do first step then add it to the steps
+                if (_stepsNumber > 1)
+                {
+                    return accelerating;
+                }
+                else
+                {
+                    _onlyOneStep = true;
+                }
+            }
+
+
             _move.TotalTime += stepData.StepTime;
             move.HeadSteps.Add(stepData);
-            //Console.WriteLine($"HeadPositionAfterStep: {stepData.HeadPositionAfterStep} SpeedAfterMove: {stepData.SpeedAfterMove} StepTime:{stepData.StepTime}");
-            // step is finished
             _traveledDistance = distanceAfterStep;
             _timeBeforeStep = timeCaculatedFromStart;
             return accelerating;
