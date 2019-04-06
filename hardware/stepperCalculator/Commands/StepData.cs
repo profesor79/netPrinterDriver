@@ -2,7 +2,7 @@
 {
     public class StepData
     {
-        public int TimeStamp { get; set; }
+        public double TimeStamp { get; set; }
         public double PositionAfterStep { get; set; }
         public double StepTime { get; set; }
         public double SpeedAfterMove { get; set; }

@@ -87,7 +87,14 @@ namespace stepperCalculator
             }
 
             Console.WriteLine($"move recorded: {_commandsList.Count}");
-            System.IO.File.WriteAllText("output.json", JsonConvert.SerializeObject(_commandsList, Formatting.Indented));
+
+            System.IO.File.WriteAllLines("output.json",new List<string>());
+
+            foreach (var printerCommand in _commandsList)
+            {
+                var data = JsonConvert.SerializeObject(printerCommand, Formatting.Indented);              System.IO.File.AppendAllText("output.json", data);
+                Console.Write(".");
+            }
         }
 
         private static void CalculateMovement(GCodeData prev, GCodeData gdata)
@@ -117,25 +124,52 @@ namespace stepperCalculator
 
             if (stepsX.TotalTime != 0)
             {
+                CalculateTimeStamps(stepsX);
                 stpsDict.Add(PrinterAxis.X, stepsX);
             }
 
             if (stepsY.TotalTime != 0)
             {
+                CalculateTimeStamps(stepsY);
                 stpsDict.Add(PrinterAxis.Y, stepsY);
             }
 
             if (stepsZ.TotalTime != 0)
             {
+                CalculateTimeStamps(stepsZ);
                 stpsDict.Add(PrinterAxis.Z, stepsZ);
             }
 
             if (stepsE.TotalTime != 0)
             {
+                CalculateTimeStamps(stepsE);
                 stpsDict.Add(PrinterAxis.E, stepsE);
             }
 
             _commandsList.Add(new MoveCommand(stpsDict));
+        }
+
+        private static void CalculateTimeStamps(Movement steps)
+        {
+            var timeFactor = 1000;
+            var timestamp = 0.0;
+            foreach (var step in steps.HeadSteps)
+            {
+                timestamp += (steps.SpeedFactor * step.StepTime * timeFactor);
+                step.TimeStamp = timestamp;
+            }
+
+            foreach (var step in steps.BodySteps)
+            {
+                timestamp += (steps.SpeedFactor * step.StepTime * timeFactor);
+                step.TimeStamp = timestamp;
+            }
+
+            foreach (var step in steps.TailSteps)
+            {
+                timestamp += (steps.SpeedFactor * step.StepTime * timeFactor);
+                step.TimeStamp = timestamp;
+            }
         }
 
         private static void ProcesMachineRelatedCommand(string[] commands)
@@ -153,7 +187,7 @@ namespace stepperCalculator
             {
                 MaxAcceleration = 500,
                 MaxSpeedPerMM = 300,
-                StepsPerMM = 1
+                StepsPerMM = 200
             });
 
 
@@ -161,14 +195,14 @@ namespace stepperCalculator
             {
                 MaxAcceleration = 500,
                 MaxSpeedPerMM = 300,
-                StepsPerMM = 1
+                StepsPerMM = 200
             });
 
             _eAxisCalculator = new MovementCalculator(new AxisConfiguration
             {
                 MaxAcceleration = 15,
                 MaxSpeedPerMM = 20,
-                StepsPerMM = 4
+                StepsPerMM = 200
             });
         }
     }
