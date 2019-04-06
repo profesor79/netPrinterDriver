@@ -1,7 +1,7 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
- using System.Diagnostics;
- using System.Linq;
+using System.Diagnostics;
+using System.Linq;
 
 namespace stepperCalculator
 {
@@ -27,7 +27,8 @@ namespace stepperCalculator
         public Movement CalculateSteps(double startPosition, double stop, double maxSpeedMmPerSec)
         {
             ResetValues();
-            Console.WriteLine($"calculating for: startPosition:{startPosition}, stop:{stop}, maxSpeedMmPerSec:{maxSpeedMmPerSec}");
+            Console.WriteLine(
+                $"calculating for: startPosition:{startPosition}, stop:{stop}, maxSpeedMmPerSec:{maxSpeedMmPerSec}");
 
 
             // calculate distance
@@ -84,7 +85,8 @@ namespace stepperCalculator
 // accelarating method need to give a flag to stop processing
 
 
-            Debug.Assert(0 < _move.HeadSteps.Count, $"0 < _move.HeadSteps.Count {_move.HeadSteps.Count}",$"calculating for: startPosition:{startPosition}, stop:{stop}, maxSpeedMmPerSec:{maxSpeedMmPerSec}, steps/mm {_axisConf.StepsPerMM}, min step: {1/_axisConf.StepsPerMM}, distance to travel: {stop-startPosition}" );
+            Debug.Assert(0 < _move.HeadSteps.Count, $"0 < _move.HeadSteps.Count {_move.HeadSteps.Count}",
+                $"calculating for: startPosition:{startPosition}, stop:{stop}, maxSpeedMmPerSec:{maxSpeedMmPerSec}, steps/mm {_axisConf.StepsPerMM}, min step: {1 / _axisConf.StepsPerMM}, distance to travel: {stop - startPosition}");
 
             // now we can do deceleration
             if (!_onlyOneStep) // prevent creating deceleration steps when only one need to be added to the move
@@ -104,17 +106,16 @@ namespace stepperCalculator
             _traveledDistance = 0;
             _timeBeforeStep = 0;
             _acceleratedToMaxSpeed = true;
-
-        _speed = 0;
-         _distance = 0;
+            _speed = 0;
+            _distance = 0;
         }
 
         private void CalculateBodySteps(double startPosition, double decelerationStepsSpeedAfterMove)
         {
             var distanceToMoveWithMaxSpeed = _distance - 2 * _traveledDistance;
             var bodyMovementSpeed = _acceleratedToMaxSpeed ? _speed : decelerationStepsSpeedAfterMove;
-            var timeWithFullSpeed =  distanceToMoveWithMaxSpeed / _speed;
-            var stepsCountWithMaxSpeed =(int) (distanceToMoveWithMaxSpeed * _axisConf.StepsPerMM);
+            var timeWithFullSpeed = distanceToMoveWithMaxSpeed / _speed;
+            var stepsCountWithMaxSpeed = (int) (distanceToMoveWithMaxSpeed * _axisConf.StepsPerMM);
             var maxSpeedCycleTime = timeWithFullSpeed / stepsCountWithMaxSpeed;
 
 
@@ -123,7 +124,7 @@ namespace stepperCalculator
                 var stepData = new StepData
                 {
                     DistanceAfterStep = _stepsNumber / _axisConf.StepsPerMM,
-                    HeadPositionAfterStep =
+                    PositionAfterStep =
                         (_move.Direction)
                             ? _stepsNumber / _axisConf.StepsPerMM + startPosition
                             : startPosition - _stepsNumber / _axisConf.StepsPerMM,
@@ -136,7 +137,7 @@ namespace stepperCalculator
                 _stepsNumber++;
             }
 
-            _move.TotalTime +=	 maxSpeedCycleTime*stepsCountWithMaxSpeed;
+            _move.TotalTime += maxSpeedCycleTime * stepsCountWithMaxSpeed;
         }
 
         private List<StepData> DecelarationStepData(double stop)
@@ -151,7 +152,7 @@ namespace stepperCalculator
                     StepTime = step.StepTime,
                     StepNumber = -step.StepNumber,
                     SpeedAfterMove = step.SpeedAfterMove,
-                    HeadPositionAfterStep = (stop - decelerationStep / _axisConf.StepsPerMM),
+                    PositionAfterStep = (stop - decelerationStep / _axisConf.StepsPerMM),
                     TimeStamp = step.TimeStamp
                 };
 
@@ -168,7 +169,7 @@ namespace stepperCalculator
             double speed,
             bool direction,
             Movement move
-            )
+        )
         {
             bool accelerating;
             _stepsNumber++;
@@ -186,7 +187,7 @@ namespace stepperCalculator
             var stepData = new StepData
             {
                 DistanceAfterStep = distanceAfterStep,
-                HeadPositionAfterStep =
+                PositionAfterStep =
                     (direction) ? distanceAfterStep + startPosition : startPosition - distanceAfterStep,
                 StepTime = cycleTime,
                 SpeedAfterMove = speedAfterDistance,
