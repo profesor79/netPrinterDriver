@@ -148,7 +148,7 @@ namespace stepperCalculator
 
             var times = new[] {stepsE.TotalTime, stepsX.TotalTime, stepsY.TotalTime, stepsZ.TotalTime};
             var maxTime = times.Max();
-            Console.WriteLine($"maxTime:{maxTime}");
+
             _stepsESpeedFactor = maxTime / stepsE.TotalTime;
             _stepsZSpeedFactor = maxTime / stepsZ.TotalTime;
             _stepsXSpeedFactor = maxTime / stepsX.TotalTime;
@@ -156,55 +156,39 @@ namespace stepperCalculator
 
             if (stepsX.TotalTime != 0)
             {
-                Console.WriteLine($"timestamp X, sp factor:{_stepsXSpeedFactor}");
-                CalculateTimeStamps(stepsX, _stepsXSpeedFactor);
+                CalculateTimeStamps(stepsX);
                 stpsDict.Add(PrinterAxis.X, stepsX);
             }
 
             if (stepsY.TotalTime != 0)
             {
-                CalculateTimeStamps(stepsY, _stepsYSpeedFactor);
+                CalculateTimeStamps(stepsY);
                 stpsDict.Add(PrinterAxis.Y, stepsY);
             }
 
             if (stepsZ.TotalTime != 0)
             {
-                CalculateTimeStamps(stepsZ, _stepsZSpeedFactor);
+                CalculateTimeStamps(stepsZ);
                 stpsDict.Add(PrinterAxis.Z, stepsZ);
             }
 
             if (stepsE.TotalTime != 0)
             {
-                CalculateTimeStamps(stepsE, _stepsESpeedFactor);
+                CalculateTimeStamps(stepsE);
                 stpsDict.Add(PrinterAxis.E, stepsE);
             }
 
             _commandsList.Add(new MoveCommand(stpsDict));
         }
 
-        private static void CalculateTimeStamps(Movement steps, double stepsSpeedFactor)
+        private static void CalculateTimeStamps(Movement steps)
         {
             var timeFactor = 1000;
             double timestamp = 0.0;
-            Console.WriteLine("-/-****--/-");
-            Console.WriteLine($"timestamp: {timestamp}");
             foreach (var step in steps.HeadSteps)
             {
-                var factoredTime = timeFactor * step.StepTime;
-                Console.WriteLine("-/-----/-");
-                Console.WriteLine($"timestamp: {timestamp}");
-                var tmp = timestamp * 1;
-                var calc = stepsSpeedFactor * factoredTime;
-                Console.WriteLine($"calc: {calc}");
-                Console.WriteLine($"stepsSpeedFactor: {stepsSpeedFactor}");
-                timestamp = tmp + calc;
+                timestamp += timeFactor * step.StepTime * steps.SpeedFactor;
                 step.TimeStamp = timestamp;
-                Console.WriteLine("-/-/-/-/");
-                Console.WriteLine(timestamp);
-                Console.WriteLine(factoredTime);
-                Console.WriteLine(steps.SpeedFactor);
-                Console.WriteLine(step.StepTime);
-                Console.WriteLine("------");
             }
 
             foreach (var step in steps.BodySteps)
