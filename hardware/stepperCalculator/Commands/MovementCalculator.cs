@@ -113,6 +113,14 @@ namespace stepperCalculator
         private void CalculateBodySteps(double startPosition, double decelerationStepsSpeedAfterMove)
         {
             var distanceToMoveWithMaxSpeed = _distance - 2 * _traveledDistance;
+
+            // as there were NAN in step total time
+            // then check for steps to go was added
+            if (distanceToMoveWithMaxSpeed == 0)
+            {
+                return;
+            }
+
             var bodyMovementSpeed = _acceleratedToMaxSpeed ? _speed : decelerationStepsSpeedAfterMove;
             var timeWithFullSpeed = distanceToMoveWithMaxSpeed / _speed;
             var stepsCountWithMaxSpeed = (int) (distanceToMoveWithMaxSpeed * _axisConf.StepsPerMM);
