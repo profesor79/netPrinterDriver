@@ -15,10 +15,6 @@ namespace stepperCalculator
         private static float _stepsmmy = 200;
         private static float _stepsmmz = 200;
         private static float _stepsmme = 400;
-        private static double _stepsESpeedFactor;
-        private static double _stepsZSpeedFactor;
-        private static double _stepsXSpeedFactor;
-        private static double _stepsYSpeedFactor;
 
         static void Main(string[] args)
         {
@@ -123,6 +119,18 @@ namespace stepperCalculator
                 Console.Write(".");
             }
             System.IO.File.AppendAllText("output.json", "\n]\n");
+
+
+
+            foreach (var printerCommand in _commandsList)
+            {
+                var data = JsonConvert.SerializeObject(printerCommand, Formatting.Indented);
+
+                System.IO.File.AppendAllText("output.txt", data+",");
+                Console.Write(".");
+            }
+
+
         }
 
         private static void ChangeSteps()
@@ -151,10 +159,10 @@ namespace stepperCalculator
             var times = new[] {stepsE.TotalTime, stepsX.TotalTime, stepsY.TotalTime, stepsZ.TotalTime};
             var maxTime = times.Max();
 
-            _stepsESpeedFactor = maxTime / stepsE.TotalTime;
-            _stepsZSpeedFactor = maxTime / stepsZ.TotalTime;
-            _stepsXSpeedFactor = maxTime / stepsX.TotalTime;
-            _stepsYSpeedFactor = maxTime / stepsY.TotalTime;
+            stepsE.SpeedFactor = maxTime / stepsE.TotalTime;
+            stepsZ.SpeedFactor = maxTime / stepsZ.TotalTime;
+            stepsX.SpeedFactor = maxTime / stepsX.TotalTime;
+            stepsY.SpeedFactor = maxTime / stepsY.TotalTime;
 
             if (stepsX.TotalTime != 0)
             {
@@ -204,6 +212,8 @@ namespace stepperCalculator
                 timestamp += (steps.SpeedFactor * step.StepTime * timeFactor);
                 step.TimeStamp = timestamp;
             }
+
+            steps.TotalTime = timestamp;
         }
 
         private static void ProcesMachineRelatedCommand(string[] commands)

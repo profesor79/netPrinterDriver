@@ -5,7 +5,7 @@
     "X": {
       "HeadSteps": [
         {
-          "TimeStamp": 28.284271919177289,
+          "TimeStamp": 85.000002074520992,
           "PositionAfterStep": 0.20000000298023224,
           "StepTime": 0.02828427191917729,
           "SpeedAfterMove": 14.142135623730951,
@@ -13,7 +13,7 @@
           "StepNumber": 1
         },
         {
-          "TimeStamp": 40.000000949949012,
+          "TimeStamp": 120.20815573552881,
           "PositionAfterStep": 0.40000000596046448,
           "StepTime": 0.011715729030771727,
           "SpeedAfterMove": 20.0,
@@ -21,7 +21,7 @@
           "StepNumber": 2
         },
         {
-          "TimeStamp": 48.989796019108738,
+          "TimeStamp": 147.22432223653033,
           "PositionAfterStep": 0.60000002384185791,
           "StepTime": 0.0089897950691597284,
           "SpeedAfterMove": 24.494897427831781,
@@ -29,7 +29,7 @@
           "StepNumber": 3
         },
         {
-          "TimeStamp": 56.568543838354572,
+          "TimeStamp": 170.00000414904198,
           "PositionAfterStep": 0.800000011920929,
           "StepTime": 0.0075787478192458346,
           "SpeedAfterMove": 28.284271247461902,
@@ -37,7 +37,7 @@
           "StepNumber": 4
         },
         {
-          "TimeStamp": 63.245554705368846,
+          "TimeStamp": 190.06578272625208,
           "PositionAfterStep": 1.0,
           "StepTime": 0.0066770108670142769,
           "SpeedAfterMove": 31.622776601683793,
@@ -45,7 +45,7 @@
           "StepNumber": 5
         },
         {
-          "TimeStamp": 69.282033948115043,
+          "TimeStamp": 208.20663321808806,
           "PositionAfterStep": 1.2000000476837158,
           "StepTime": 0.0060364792427461955,
           "SpeedAfterMove": 34.641016151377549,
@@ -53,7 +53,7 @@
           "StepNumber": 6
         },
         {
-          "TimeStamp": 74.833146401340358,
+          "TimeStamp": 224.88885757897503,
           "PositionAfterStep": 1.3999999761581421,
           "StepTime": 0.0055511124532253153,
           "SpeedAfterMove": 37.416573867739416,
@@ -61,7 +61,7 @@
           "StepNumber": 7
         },
         {
-          "TimeStamp": 80.000001899898024,
+          "TimeStamp": 240.41631147105761,
           "PositionAfterStep": 1.6000000238418579,
           "StepTime": 0.0051668554985576653,
           "SpeedAfterMove": 40.0,
@@ -69,7 +69,7 @@
           "StepNumber": 8
         },
         {
-          "TimeStamp": 84.852813013596432,
+          "TimeStamp": 254.99999797747773,
           "PositionAfterStep": 1.7999999523162842,
           "StepTime": 0.00485281111369841,
           "SpeedAfterMove": 42.426406871192853,
@@ -77,7 +77,7 @@
           "StepNumber": 9
         },
         {
-          "TimeStamp": 89.442721224142161,
+          "TimeStamp": 268.79360767452363,
           "PositionAfterStep": 2.0,
           "StepTime": 0.0045899082105457234,
           "SpeedAfterMove": 44.721359549995796,
@@ -85,7 +85,7 @@
           "StepNumber": 10
         },
         {
-          "TimeStamp": 93.80831494231353,
+          "TimeStamp": 281.913106601752,
           "PositionAfterStep": 2.2000000476837158,
           "StepTime": 0.0043655937181713705,
           "SpeedAfterMove": 46.9041575982343,
@@ -93,7 +93,7 @@
           "StepNumber": 11
         },
         {
-          "TimeStamp": 97.979592038217476,
+          "TimeStamp": 294.44864447306065,
           "PositionAfterStep": 2.4000000953674316,
           "StepTime": 0.0041712770959039525,
           "SpeedAfterMove": 48.989794855663561,
@@ -101,7 +101,7 @@
           "StepNumber": 12
         },
         {
-          "TimeStamp": 101.9803904106677,
+          "TimeStamp": 306.47185903307332,
           "PositionAfterStep": 2.5999999046325684,
           "StepTime": 0.0040007983724502233,
           "SpeedAfterMove": 50.990195135927848,
@@ -109,7 +109,7 @@
           "StepNumber": 13
         },
         {
-          "TimeStamp": 105.83005055582689,
+          "TimeStamp": 318.04087241477788,
           "PositionAfterStep": 2.7999999523162842,
           "StepTime": 0.003849660145159195,
           "SpeedAfterMove": 52.915026221291811,
@@ -117,7 +117,7 @@
           "StepNumber": 14
         },
         {
-          "TimeStamp": 109.54451197713249,
+          "TimeStamp": 329.20358607482558,
           "PositionAfterStep": 3.0,
           "StepTime": 0.0037144614213056037,
           "SpeedAfterMove": 54.772255750516614,
@@ -125,7 +125,7 @@
           "StepNumber": 15
         },
         {
-          "TimeStamp": 113.13708767670913,
+          "TimeStamp": 340.00000829808397,
           "PositionAfterStep": 3.2000000476837158,
           "StepTime": 0.0035925756995766472,
           "SpeedAfterMove": 56.568542494923804,
@@ -133,7 +133,7 @@
           "StepNumber": 16
         },
         {
-          "TimeStamp": 116.61903866995321,
+          "TimeStamp": 350.46398073106207,
           "PositionAfterStep": 3.4000000953674316,
           "StepTime": 0.0034819509932440817,
           "SpeedAfterMove": 58.309518948453004,
@@ -141,7 +141,7 @@
           "StepNumber": 17
         },
         {
-          "TimeStamp": 119.99999896933632,
+          "TimeStamp": 360.62445554486084,
           "PositionAfterStep": 3.5999999046325684,
           "StepTime": 0.0033809602993831039,
           "SpeedAfterMove": 60.0,
@@ -149,7 +149,7 @@
           "StepNumber": 18
         },
         {
-          "TimeStamp": 123.28828109881314,
+          "TimeStamp": 370.50641356823957,
           "PositionAfterStep": 3.7999999523162842,
           "StepTime": 0.0032882821294768216,
           "SpeedAfterMove": 61.644140029689765,
@@ -157,7 +157,7 @@
           "StepNumber": 19
         },
         {
-          "TimeStamp": 126.49110941073769,
+          "TimeStamp": 380.13156545250416,
           "PositionAfterStep": 4.0,
           "StepTime": 0.0032028283119245465,
           "SpeedAfterMove": 63.245553203367585,
@@ -165,7 +165,7 @@
           "StepNumber": 20
         },
         {
-          "TimeStamp": 129.6148116573616,
+          "TimeStamp": 389.51892738290593,
           "PositionAfterStep": 4.1999998092651367,
           "StepTime": 0.003123702246623894,
           "SpeedAfterMove": 64.8074069840786,
@@ -173,7 +173,7 @@
           "StepNumber": 21
         },
         {
-          "TimeStamp": 132.66499125478646,
+          "TimeStamp": 398.68533876692982,
           "PositionAfterStep": 4.4000000953674316,
           "StepTime": 0.0030501795974248458,
           "SpeedAfterMove": 66.332495807108,
@@ -181,7 +181,7 @@
           "StepNumber": 22
         },
         {
-          "TimeStamp": 135.64660116748894,
+          "TimeStamp": 407.6456842723515,
           "PositionAfterStep": 4.5999999046325684,
           "StepTime": 0.0029816099127024931,
           "SpeedAfterMove": 67.823299831252683,
@@ -189,7 +189,7 @@
           "StepNumber": 23
         },
         {
-          "TimeStamp": 138.56406789623009,
+          "TimeStamp": 416.41326643617612,
           "PositionAfterStep": 4.8000001907348633,
           "StepTime": 0.0029174667287411582,
           "SpeedAfterMove": 69.2820323027551,
@@ -197,7 +197,7 @@
           "StepNumber": 24
         },
         {
-          "TimeStamp": 141.42135465680266,
+          "TimeStamp": 424.99999552965153,
           "PositionAfterStep": 5.0,
           "StepTime": 0.0028572867605725638,
           "SpeedAfterMove": 70.710678118654755,
@@ -208,7 +208,7 @@
       "BodySteps": [],
       "TailSteps": [
         {
-          "TimeStamp": 144.27864141737524,
+          "TimeStamp": 433.58672462312694,
           "PositionAfterStep": 5.1999998092651367,
           "StepTime": 0.0028572867605725638,
           "SpeedAfterMove": 70.710678118654755,
@@ -216,7 +216,7 @@
           "StepNumber": -25
         },
         {
-          "TimeStamp": 147.19610814611639,
+          "TimeStamp": 442.35430678695155,
           "PositionAfterStep": 5.4000000953674316,
           "StepTime": 0.0029174667287411582,
           "SpeedAfterMove": 69.2820323027551,
@@ -224,7 +224,7 @@
           "StepNumber": -24
         },
         {
-          "TimeStamp": 150.17771805881887,
+          "TimeStamp": 451.31465229237324,
           "PositionAfterStep": 5.5999999046325684,
           "StepTime": 0.0029816099127024931,
           "SpeedAfterMove": 67.823299831252683,
@@ -232,7 +232,7 @@
           "StepNumber": -23
         },
         {
-          "TimeStamp": 153.22789765624373,
+          "TimeStamp": 460.48106367639713,
           "PositionAfterStep": 5.8000001907348633,
           "StepTime": 0.0030501795974248458,
           "SpeedAfterMove": 66.332495807108,
@@ -240,7 +240,7 @@
           "StepNumber": -22
         },
         {
-          "TimeStamp": 156.35159990286763,
+          "TimeStamp": 469.86842560679889,
           "PositionAfterStep": 6.0,
           "StepTime": 0.003123702246623894,
           "SpeedAfterMove": 64.8074069840786,
@@ -248,7 +248,7 @@
           "StepNumber": -21
         },
         {
-          "TimeStamp": 159.55442821479218,
+          "TimeStamp": 479.49357749106349,
           "PositionAfterStep": 6.2000000476837158,
           "StepTime": 0.0032028283119245465,
           "SpeedAfterMove": 63.245553203367585,
@@ -256,7 +256,7 @@
           "StepNumber": -20
         },
         {
-          "TimeStamp": 162.842710344269,
+          "TimeStamp": 489.37553551444222,
           "PositionAfterStep": 6.4000000953674316,
           "StepTime": 0.0032882821294768216,
           "SpeedAfterMove": 61.644140029689765,
@@ -264,7 +264,7 @@
           "StepNumber": -19
         },
         {
-          "TimeStamp": 166.2236706436521,
+          "TimeStamp": 499.536010328241,
           "PositionAfterStep": 6.5999999046325684,
           "StepTime": 0.0033809602993831039,
           "SpeedAfterMove": 60.0,
@@ -272,7 +272,7 @@
           "StepNumber": -18
         },
         {
-          "TimeStamp": 169.70562163689618,
+          "TimeStamp": 509.99998276121909,
           "PositionAfterStep": 6.7999999523162842,
           "StepTime": 0.0034819509932440817,
           "SpeedAfterMove": 58.309518948453004,
@@ -280,7 +280,7 @@
           "StepNumber": -17
         },
         {
-          "TimeStamp": 173.29819733647284,
+          "TimeStamp": 520.79640498447748,
           "PositionAfterStep": 7.0,
           "StepTime": 0.0035925756995766472,
           "SpeedAfterMove": 56.568542494923804,
@@ -288,7 +288,7 @@
           "StepNumber": -16
         },
         {
-          "TimeStamp": 177.01265875777844,
+          "TimeStamp": 531.95911864452523,
           "PositionAfterStep": 7.2000000476837158,
           "StepTime": 0.0037144614213056037,
           "SpeedAfterMove": 54.772255750516614,
@@ -296,7 +296,7 @@
           "StepNumber": -15
         },
         {
-          "TimeStamp": 180.86231890293763,
+          "TimeStamp": 543.52813202622974,
           "PositionAfterStep": 7.4000000953674316,
           "StepTime": 0.003849660145159195,
           "SpeedAfterMove": 52.915026221291811,
@@ -304,7 +304,7 @@
           "StepNumber": -14
         },
         {
-          "TimeStamp": 184.86311727538785,
+          "TimeStamp": 555.5513465862424,
           "PositionAfterStep": 7.5999999046325684,
           "StepTime": 0.0040007983724502233,
           "SpeedAfterMove": 50.990195135927848,
@@ -312,7 +312,7 @@
           "StepNumber": -13
         },
         {
-          "TimeStamp": 189.0343943712918,
+          "TimeStamp": 568.086884457551,
           "PositionAfterStep": 7.7999999523162842,
           "StepTime": 0.0041712770959039525,
           "SpeedAfterMove": 48.989794855663561,
@@ -320,7 +320,7 @@
           "StepNumber": -12
         },
         {
-          "TimeStamp": 193.39998808946316,
+          "TimeStamp": 581.20638338477943,
           "PositionAfterStep": 8.0,
           "StepTime": 0.0043655937181713705,
           "SpeedAfterMove": 46.9041575982343,
@@ -328,7 +328,7 @@
           "StepNumber": -11
         },
         {
-          "TimeStamp": 197.98989630000889,
+          "TimeStamp": 594.99999308182532,
           "PositionAfterStep": 8.2000000476837158,
           "StepTime": 0.0045899082105457234,
           "SpeedAfterMove": 44.721359549995796,
@@ -336,7 +336,7 @@
           "StepNumber": -10
         },
         {
-          "TimeStamp": 202.8427074137073,
+          "TimeStamp": 609.58367958824545,
           "PositionAfterStep": 8.3999999761581421,
           "StepTime": 0.00485281111369841,
           "SpeedAfterMove": 42.426406871192853,
@@ -344,7 +344,7 @@
           "StepNumber": -9
         },
         {
-          "TimeStamp": 208.00956291226495,
+          "TimeStamp": 625.111133480328,
           "PositionAfterStep": 8.6000000238418579,
           "StepTime": 0.0051668554985576653,
           "SpeedAfterMove": 40.0,
@@ -352,7 +352,7 @@
           "StepNumber": -8
         },
         {
-          "TimeStamp": 213.56067536549028,
+          "TimeStamp": 641.793357841215,
           "PositionAfterStep": 8.7999999523162842,
           "StepTime": 0.0055511124532253153,
           "SpeedAfterMove": 37.416573867739416,
@@ -360,7 +360,7 @@
           "StepNumber": -7
         },
         {
-          "TimeStamp": 219.59715460823648,
+          "TimeStamp": 659.934208333051,
           "PositionAfterStep": 9.0,
           "StepTime": 0.0060364792427461955,
           "SpeedAfterMove": 34.641016151377549,
@@ -368,7 +368,7 @@
           "StepNumber": -6
         },
         {
-          "TimeStamp": 226.27416547525075,
+          "TimeStamp": 679.999986910261,
           "PositionAfterStep": 9.199999988079071,
           "StepTime": 0.0066770108670142769,
           "SpeedAfterMove": 31.622776601683793,
@@ -376,7 +376,7 @@
           "StepNumber": -5
         },
         {
-          "TimeStamp": 233.8529132944966,
+          "TimeStamp": 702.77566882277267,
           "PositionAfterStep": 9.3999999761581421,
           "StepTime": 0.0075787478192458346,
           "SpeedAfterMove": 28.284271247461902,
@@ -384,7 +384,7 @@
           "StepNumber": -4
         },
         {
-          "TimeStamp": 242.84270836365633,
+          "TimeStamp": 729.79183532377419,
           "PositionAfterStep": 9.5999999940395355,
           "StepTime": 0.0089897950691597284,
           "SpeedAfterMove": 24.494897427831781,
@@ -392,7 +392,7 @@
           "StepNumber": -3
         },
         {
-          "TimeStamp": 254.55843739442804,
+          "TimeStamp": 764.999988984782,
           "PositionAfterStep": 9.7999999970197678,
           "StepTime": 0.011715729030771727,
           "SpeedAfterMove": 20.0,
@@ -400,7 +400,7 @@
           "StepNumber": -2
         },
         {
-          "TimeStamp": 282.84270931360533,
+          "TimeStamp": 849.999991059303,
           "PositionAfterStep": 10.0,
           "StepTime": 0.02828427191917729,
           "SpeedAfterMove": 14.142135623730951,
@@ -408,8 +408,8 @@
           "StepNumber": -1
         }
       ],
-      "TotalTime": 0.28284270931360528,
-      "SpeedFactor": 1.0,
+      "TotalTime": 849.999991059303,
+      "SpeedFactor": 3.00520382201846,
       "Direction": true
     },
     "Y": {
@@ -4019,7 +4019,7 @@
           "StepNumber": -1
         }
       ],
-      "TotalTime": 0.8499999910593028,
+      "TotalTime": 849.99999105930294,
       "SpeedFactor": 1.0,
       "Direction": true
     }
@@ -4030,7 +4030,7 @@
     "X": {
       "HeadSteps": [
         {
-          "TimeStamp": 28.284271919177289,
+          "TimeStamp": "NaN",
           "PositionAfterStep": 10.200000002980232,
           "StepTime": 0.02828427191917729,
           "SpeedAfterMove": 14.142135623730951,
@@ -4038,7 +4038,7 @@
           "StepNumber": 1
         },
         {
-          "TimeStamp": 40.000000949949012,
+          "TimeStamp": "NaN",
           "PositionAfterStep": 10.400000005960464,
           "StepTime": 0.011715729030771727,
           "SpeedAfterMove": 20.0,
@@ -4046,7 +4046,7 @@
           "StepNumber": 2
         },
         {
-          "TimeStamp": 48.989796019108738,
+          "TimeStamp": "NaN",
           "PositionAfterStep": 10.600000023841858,
           "StepTime": 0.0089897950691597284,
           "SpeedAfterMove": 24.494897427831781,
@@ -4054,7 +4054,7 @@
           "StepNumber": 3
         },
         {
-          "TimeStamp": 56.568543838354572,
+          "TimeStamp": "NaN",
           "PositionAfterStep": 10.800000011920929,
           "StepTime": 0.0075787478192458346,
           "SpeedAfterMove": 28.284271247461902,
@@ -4062,7 +4062,7 @@
           "StepNumber": 4
         },
         {
-          "TimeStamp": 63.245554705368846,
+          "TimeStamp": "NaN",
           "PositionAfterStep": 11.0,
           "StepTime": 0.0066770108670142769,
           "SpeedAfterMove": 31.622776601683793,
@@ -4070,7 +4070,7 @@
           "StepNumber": 5
         },
         {
-          "TimeStamp": 69.282033948115043,
+          "TimeStamp": "NaN",
           "PositionAfterStep": 11.200000047683716,
           "StepTime": 0.0060364792427461955,
           "SpeedAfterMove": 34.641016151377549,
@@ -4078,7 +4078,7 @@
           "StepNumber": 6
         },
         {
-          "TimeStamp": 74.833146401340358,
+          "TimeStamp": "NaN",
           "PositionAfterStep": 11.399999976158142,
           "StepTime": 0.0055511124532253153,
           "SpeedAfterMove": 37.416573867739416,
@@ -4086,7 +4086,7 @@
           "StepNumber": 7
         },
         {
-          "TimeStamp": 80.000001899898024,
+          "TimeStamp": "NaN",
           "PositionAfterStep": 11.600000023841858,
           "StepTime": 0.0051668554985576653,
           "SpeedAfterMove": 40.0,
@@ -4094,7 +4094,7 @@
           "StepNumber": 8
         },
         {
-          "TimeStamp": 84.852813013596432,
+          "TimeStamp": "NaN",
           "PositionAfterStep": 11.799999952316284,
           "StepTime": 0.00485281111369841,
           "SpeedAfterMove": 42.426406871192853,
@@ -4102,7 +4102,7 @@
           "StepNumber": 9
         },
         {
-          "TimeStamp": 89.442721224142161,
+          "TimeStamp": "NaN",
           "PositionAfterStep": 12.0,
           "StepTime": 0.0045899082105457234,
           "SpeedAfterMove": 44.721359549995796,
@@ -4110,7 +4110,7 @@
           "StepNumber": 10
         },
         {
-          "TimeStamp": 93.80831494231353,
+          "TimeStamp": "NaN",
           "PositionAfterStep": 12.200000047683716,
           "StepTime": 0.0043655937181713705,
           "SpeedAfterMove": 46.9041575982343,
@@ -4118,7 +4118,7 @@
           "StepNumber": 11
         },
         {
-          "TimeStamp": 97.979592038217476,
+          "TimeStamp": "NaN",
           "PositionAfterStep": 12.400000095367432,
           "StepTime": 0.0041712770959039525,
           "SpeedAfterMove": 48.989794855663561,
@@ -4129,7 +4129,7 @@
       "BodySteps": [],
       "TailSteps": [
         {
-          "TimeStamp": 102.15086913412142,
+          "TimeStamp": "NaN",
           "PositionAfterStep": 12.799999952316284,
           "StepTime": 0.0041712770959039525,
           "SpeedAfterMove": 48.989794855663561,
@@ -4137,7 +4137,7 @@
           "StepNumber": -12
         },
         {
-          "TimeStamp": 106.51646285229279,
+          "TimeStamp": "NaN",
           "PositionAfterStep": 13.0,
           "StepTime": 0.0043655937181713705,
           "SpeedAfterMove": 46.9041575982343,
@@ -4145,7 +4145,7 @@
           "StepNumber": -11
         },
         {
-          "TimeStamp": 111.10637106283852,
+          "TimeStamp": "NaN",
           "PositionAfterStep": 13.200000047683716,
           "StepTime": 0.0045899082105457234,
           "SpeedAfterMove": 44.721359549995796,
@@ -4153,7 +4153,7 @@
           "StepNumber": -10
         },
         {
-          "TimeStamp": 115.95918217653693,
+          "TimeStamp": "NaN",
           "PositionAfterStep": 13.399999976158142,
           "StepTime": 0.00485281111369841,
           "SpeedAfterMove": 42.426406871192853,
@@ -4161,7 +4161,7 @@
           "StepNumber": -9
         },
         {
-          "TimeStamp": 121.12603767509459,
+          "TimeStamp": "NaN",
           "PositionAfterStep": 13.600000023841858,
           "StepTime": 0.0051668554985576653,
           "SpeedAfterMove": 40.0,
@@ -4169,7 +4169,7 @@
           "StepNumber": -8
         },
         {
-          "TimeStamp": 126.67715012831991,
+          "TimeStamp": "NaN",
           "PositionAfterStep": 13.799999952316284,
           "StepTime": 0.0055511124532253153,
           "SpeedAfterMove": 37.416573867739416,
@@ -4177,7 +4177,7 @@
           "StepNumber": -7
         },
         {
-          "TimeStamp": 132.71362937106611,
+          "TimeStamp": "NaN",
           "PositionAfterStep": 14.0,
           "StepTime": 0.0060364792427461955,
           "SpeedAfterMove": 34.641016151377549,
@@ -4185,7 +4185,7 @@
           "StepNumber": -6
         },
         {
-          "TimeStamp": 139.39064023808038,
+          "TimeStamp": "NaN",
           "PositionAfterStep": 14.199999988079071,
           "StepTime": 0.0066770108670142769,
           "SpeedAfterMove": 31.622776601683793,
@@ -4193,7 +4193,7 @@
           "StepNumber": -5
         },
         {
-          "TimeStamp": 146.96938805732623,
+          "TimeStamp": "NaN",
           "PositionAfterStep": 14.399999976158142,
           "StepTime": 0.0075787478192458346,
           "SpeedAfterMove": 28.284271247461902,
@@ -4201,7 +4201,7 @@
           "StepNumber": -4
         },
         {
-          "TimeStamp": 155.95918312648595,
+          "TimeStamp": "NaN",
           "PositionAfterStep": 14.599999994039536,
           "StepTime": 0.0089897950691597284,
           "SpeedAfterMove": 24.494897427831781,
@@ -4209,7 +4209,7 @@
           "StepNumber": -3
         },
         {
-          "TimeStamp": 167.67491215725767,
+          "TimeStamp": "NaN",
           "PositionAfterStep": 14.799999997019768,
           "StepTime": 0.011715729030771727,
           "SpeedAfterMove": 20.0,
@@ -4217,7 +4217,7 @@
           "StepNumber": -2
         },
         {
-          "TimeStamp": 195.95918407643495,
+          "TimeStamp": "NaN",
           "PositionAfterStep": 15.0,
           "StepTime": 0.02828427191917729,
           "SpeedAfterMove": 14.142135623730951,
@@ -4226,7 +4226,7 @@
         }
       ],
       "TotalTime": "NaN",
-      "SpeedFactor": 1.0,
+      "SpeedFactor": "NaN",
       "Direction": true
     },
     "Y": {
@@ -5035,7 +5035,7 @@
           "StepNumber": -1
         }
       ],
-      "TotalTime": 0.39999999552965154,
+      "TotalTime": 399.99999552965159,
       "SpeedFactor": 1.0,
       "Direction": true
     }
