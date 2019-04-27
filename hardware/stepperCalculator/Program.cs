@@ -131,7 +131,7 @@ namespace stepperCalculator
 
         private static void CalculateMovement(GCodeData prev, GCodeData gdata)
         {
-            //jInitializeAxes();
+            InitializeAxes();
             var stpsDict = new Dictionary<PrinterAxis, Movement>();
             var stepsX =
                 _xAxisCalculator.CalculateSteps(prev.Coordinates[PrinterAxis.X], gdata.Coordinates[PrinterAxis.X], 200);
