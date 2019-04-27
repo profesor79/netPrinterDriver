@@ -115,12 +115,14 @@ namespace stepperCalculator
 
             System.IO.File.WriteAllLines("output.json", new List<string>());
 
+            System.IO.File.AppendAllText("output.json", "[\n");
             foreach (var printerCommand in _commandsList)
             {
                 var data = JsonConvert.SerializeObject(printerCommand, Formatting.Indented);
-                System.IO.File.AppendAllText("output.json", data);
+                System.IO.File.AppendAllText("output.json", data+",");
                 Console.Write(".");
             }
+            System.IO.File.AppendAllText("output.json", "\n]\n");
         }
 
         private static void ChangeSteps()
