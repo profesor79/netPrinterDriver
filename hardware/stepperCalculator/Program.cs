@@ -11,12 +11,37 @@ namespace stepperCalculator
         private static MovementCalculator _eAxisCalculator;
         private static MovementCalculator _xAxisCalculator;
         private static List<IPrinterCommand> _commandsList = new List<IPrinterCommand>();
+        private static float _stepsmmx = 200;
+        private static float _stepsmmy = 200;
+        private static float _stepsmmz = 200;
+        private static float _stepsmme = 400;
+        private static double _stepsESpeedFactor;
+        private static double _stepsZSpeedFactor;
+        private static double _stepsXSpeedFactor;
+        private static double _stepsYSpeedFactor;
 
         static void Main(string[] args)
         {
             InitializeAxes();
+
             var reader = new FileReader();
-            var lines = reader.Readfile();
+
+            // we can specify file name as a parameter
+            List<string> lines;
+            if (args.Length > 0)
+            {
+                // a cheat here, as we have our test file then change stps values.
+                if (args[0].ToLower() == "syncsample.gcode")
+                {
+                    ChangeSteps();
+                }
+                lines = reader.Readfile(args[0]);
+            }
+            else
+            {
+                lines = reader.Readfile();
+            }
+
 
             var posX = 0.0;
             var posY = 0.0;
@@ -88,18 +113,25 @@ namespace stepperCalculator
 
             Console.WriteLine($"move recorded: {_commandsList.Count}");
 
-            System.IO.File.WriteAllLines("output.json",new List<string>());
+            System.IO.File.WriteAllLines("output.json", new List<string>());
 
             foreach (var printerCommand in _commandsList)
             {
-                var data = JsonConvert.SerializeObject(printerCommand, Formatting.Indented);              System.IO.File.AppendAllText("output.json", data);
+                var data = JsonConvert.SerializeObject(printerCommand, Formatting.Indented);
+                System.IO.File.AppendAllText("output.json", data);
                 Console.Write(".");
             }
         }
 
+        private static void ChangeSteps()
+        {
+            _stepsmmx = 5;
+            _stepsmmy = 5;
+        }
+
         private static void CalculateMovement(GCodeData prev, GCodeData gdata)
         {
-            InitializeAxes();
+            //jInitializeAxes();
             var stpsDict = new Dictionary<PrinterAxis, Movement>();
             var stepsX =
                 _xAxisCalculator.CalculateSteps(prev.Coordinates[PrinterAxis.X], gdata.Coordinates[PrinterAxis.X], 200);
@@ -116,47 +148,63 @@ namespace stepperCalculator
 
             var times = new[] {stepsE.TotalTime, stepsX.TotalTime, stepsY.TotalTime, stepsZ.TotalTime};
             var maxTime = times.Max();
-
-            stepsE.SpeedFactor = maxTime / stepsE.TotalTime;
-            stepsZ.SpeedFactor = maxTime / stepsZ.TotalTime;
-            stepsX.SpeedFactor = maxTime / stepsX.TotalTime;
-            stepsY.SpeedFactor = maxTime / stepsY.TotalTime;
+            Console.WriteLine($"maxTime:{maxTime}");
+            _stepsESpeedFactor = maxTime / stepsE.TotalTime;
+            _stepsZSpeedFactor = maxTime / stepsZ.TotalTime;
+            _stepsXSpeedFactor = maxTime / stepsX.TotalTime;
+            _stepsYSpeedFactor = maxTime / stepsY.TotalTime;
 
             if (stepsX.TotalTime != 0)
             {
-                CalculateTimeStamps(stepsX);
+                Console.WriteLine($"timestamp X, sp factor:{_stepsXSpeedFactor}");
+                CalculateTimeStamps(stepsX, _stepsXSpeedFactor);
                 stpsDict.Add(PrinterAxis.X, stepsX);
             }
 
             if (stepsY.TotalTime != 0)
             {
-                CalculateTimeStamps(stepsY);
+                CalculateTimeStamps(stepsY, _stepsYSpeedFactor);
                 stpsDict.Add(PrinterAxis.Y, stepsY);
             }
 
             if (stepsZ.TotalTime != 0)
             {
-                CalculateTimeStamps(stepsZ);
+                CalculateTimeStamps(stepsZ, _stepsZSpeedFactor);
                 stpsDict.Add(PrinterAxis.Z, stepsZ);
             }
 
             if (stepsE.TotalTime != 0)
             {
-                CalculateTimeStamps(stepsE);
+                CalculateTimeStamps(stepsE, _stepsESpeedFactor);
                 stpsDict.Add(PrinterAxis.E, stepsE);
             }
 
             _commandsList.Add(new MoveCommand(stpsDict));
         }
 
-        private static void CalculateTimeStamps(Movement steps)
+        private static void CalculateTimeStamps(Movement steps, double stepsSpeedFactor)
         {
             var timeFactor = 1000;
-            var timestamp = 0.0;
+            double timestamp = 0.0;
+            Console.WriteLine("-/-****--/-");
+            Console.WriteLine($"timestamp: {timestamp}");
             foreach (var step in steps.HeadSteps)
             {
-                timestamp += (steps.SpeedFactor * step.StepTime * timeFactor);
+                var factoredTime = timeFactor * step.StepTime;
+                Console.WriteLine("-/-----/-");
+                Console.WriteLine($"timestamp: {timestamp}");
+                var tmp = timestamp * 1;
+                var calc = stepsSpeedFactor * factoredTime;
+                Console.WriteLine($"calc: {calc}");
+                Console.WriteLine($"stepsSpeedFactor: {stepsSpeedFactor}");
+                timestamp = tmp + calc;
                 step.TimeStamp = timestamp;
+                Console.WriteLine("-/-/-/-/");
+                Console.WriteLine(timestamp);
+                Console.WriteLine(factoredTime);
+                Console.WriteLine(steps.SpeedFactor);
+                Console.WriteLine(step.StepTime);
+                Console.WriteLine("------");
             }
 
             foreach (var step in steps.BodySteps)
@@ -187,7 +235,7 @@ namespace stepperCalculator
             {
                 MaxAcceleration = 500,
                 MaxSpeedPerMM = 300,
-                StepsPerMM = 200
+                StepsPerMM = _stepsmmx
             });
 
 
@@ -195,14 +243,14 @@ namespace stepperCalculator
             {
                 MaxAcceleration = 500,
                 MaxSpeedPerMM = 300,
-                StepsPerMM = 200
+                StepsPerMM = _stepsmmy
             });
 
             _eAxisCalculator = new MovementCalculator(new AxisConfiguration
             {
                 MaxAcceleration = 15,
                 MaxSpeedPerMM = 20,
-                StepsPerMM = 200
+                StepsPerMM = _stepsmme
             });
         }
     }

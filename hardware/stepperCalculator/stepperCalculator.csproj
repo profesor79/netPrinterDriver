@@ -17,6 +17,9 @@
     <None Update="eat_sleep_code_repeat.gcode">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="syncSample.gcode">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
