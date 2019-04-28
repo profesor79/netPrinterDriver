@@ -2,11 +2,11 @@
 {
     public class StepsData
     {
-        public double StartPosition { get; }
-        public double StopPosition { get; }
-        public double Speed { get; }
+        public decimal StartPosition { get; }
+        public decimal StopPosition { get; }
+        public decimal Speed { get; }
 
-        public StepsData(double startPosition, double stopPosition, double speed)
+        public StepsData(decimal startPosition, decimal stopPosition, decimal speed)
         {
             StartPosition = startPosition;
             StopPosition = stopPosition;

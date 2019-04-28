@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using CsvHelper;
 using Newtonsoft.Json;
 
 namespace stepperCalculator
@@ -11,10 +13,10 @@ namespace stepperCalculator
         private static MovementCalculator _eAxisCalculator;
         private static MovementCalculator _xAxisCalculator;
         private static List<IPrinterCommand> _commandsList = new List<IPrinterCommand>();
-        private static float _stepsmmx = 200;
-        private static float _stepsmmy = 200;
-        private static float _stepsmmz = 200;
-        private static float _stepsmme = 400;
+        private static decimal _stepsmmx = 200;
+        private static decimal _stepsmmy = 200;
+        private static decimal _stepsmmz = 200;
+        private static decimal _stepsmme = 400;
 
         static void Main(string[] args)
         {
@@ -31,6 +33,7 @@ namespace stepperCalculator
                 {
                     ChangeSteps();
                 }
+
                 lines = reader.Readfile(args[0]);
             }
             else
@@ -61,10 +64,10 @@ namespace stepperCalculator
                 if (commands[0] == "G28")
                 {
                     Console.WriteLine("executing homing....");
-                    gdata.Coordinates[PrinterAxis.X] = 0.0;
-                    gdata.Coordinates[PrinterAxis.Y] = 0.0;
-                    gdata.Coordinates[PrinterAxis.Z] = 0.0;
-                    gdata.Coordinates[PrinterAxis.E] = 0.0;
+                    gdata.Coordinates[PrinterAxis.X] = 0;
+                    gdata.Coordinates[PrinterAxis.Y] = 0;
+                    gdata.Coordinates[PrinterAxis.Z] = 0;
+                    gdata.Coordinates[PrinterAxis.E] = 0;
                     noHomeSkip = false;
                 }
 
@@ -84,22 +87,22 @@ namespace stepperCalculator
                     {
                         if (c.Trim().StartsWith("X"))
                         {
-                            gdata.Coordinates[PrinterAxis.X] = double.Parse(c.Replace("X", string.Empty));
+                            gdata.Coordinates[PrinterAxis.X] = decimal.Parse(c.Replace("X", string.Empty));
                         }
 
                         if (c.Trim().StartsWith("Y"))
                         {
-                            gdata.Coordinates[PrinterAxis.Y] = double.Parse(c.Replace("Y", string.Empty));
+                            gdata.Coordinates[PrinterAxis.Y] = decimal.Parse(c.Replace("Y", string.Empty));
                         }
 
                         if (c.Trim().StartsWith("Z"))
                         {
-                            gdata.Coordinates[PrinterAxis.Z] = double.Parse(c.Replace("Z", string.Empty));
+                            gdata.Coordinates[PrinterAxis.Z] = decimal.Parse(c.Replace("Z", string.Empty));
                         }
 
                         if (c.Trim().StartsWith("E"))
                         {
-                            gdata.Coordinates[PrinterAxis.E] = double.Parse(c.Replace("E", string.Empty));
+                            gdata.Coordinates[PrinterAxis.E] = decimal.Parse(c.Replace("E", string.Empty));
                         }
                     }
 
@@ -115,20 +118,39 @@ namespace stepperCalculator
             foreach (var printerCommand in _commandsList)
             {
                 var data = JsonConvert.SerializeObject(printerCommand, Formatting.Indented);
-                System.IO.File.AppendAllText("output.json", data+",");
+                System.IO.File.AppendAllText("output.json", data + ",");
                 Console.Write(".");
             }
+
             System.IO.File.AppendAllText("output.json", "\n]\n");
 
+            Console.WriteLine("done!");
+
+            System.IO.File.WriteAllLines("output.txt", new List<string>());
 
 
-            foreach (var printerCommand in _commandsList)
-            {
-                var data = JsonConvert.SerializeObject(printerCommand, Formatting.Indented);
 
-                System.IO.File.AppendAllText("output.txt", data+",");
-                Console.Write(".");
-            }
+
+
+                using (var writer = new StreamWriter("output.txt"))
+                using (var csv = new CsvWriter(writer))
+                {
+                    foreach (var printerCommand in _commandsList)
+                    {
+                        var data = (MoveCommand)printerCommand;
+                        var move = (Dictionary<PrinterAxis, Movement>) data.CommandData;
+                        foreach (var m in move.Values)
+                        {
+                            csv.WriteRecords(m.AllSteps());
+                            // System.IO.File.AppendAllText("output.txt", JsonConvert.SerializeObject(m, Formatting.Indented) + ",");
+                        }
+
+                        Console.Write("@");
+                    }
+
+                }
+
+
 
 
         }
@@ -159,10 +181,10 @@ namespace stepperCalculator
             var times = new[] {stepsE.TotalTime, stepsX.TotalTime, stepsY.TotalTime, stepsZ.TotalTime};
             var maxTime = times.Max();
 
-            stepsE.SpeedFactor = maxTime / stepsE.TotalTime;
-            stepsZ.SpeedFactor = maxTime / stepsZ.TotalTime;
-            stepsX.SpeedFactor = maxTime / stepsX.TotalTime;
-            stepsY.SpeedFactor = maxTime / stepsY.TotalTime;
+            stepsE.SpeedFactor = (stepsE.TotalTime != 0) ? maxTime / stepsE.TotalTime : 1;
+            stepsZ.SpeedFactor = (stepsZ.TotalTime != 0) ? maxTime / stepsZ.TotalTime : 1;
+            stepsX.SpeedFactor = (stepsX.TotalTime != 0) ? maxTime / stepsX.TotalTime : 1;
+            stepsY.SpeedFactor = (stepsY.TotalTime != 0) ? maxTime / stepsY.TotalTime : 1;
 
             if (stepsX.TotalTime != 0)
             {
@@ -194,7 +216,7 @@ namespace stepperCalculator
         private static void CalculateTimeStamps(Movement steps)
         {
             var timeFactor = 1000;
-            double timestamp = 0.0;
+            decimal timestamp = 0;
             foreach (var step in steps.HeadSteps)
             {
                 timestamp += timeFactor * step.StepTime * steps.SpeedFactor;
@@ -232,7 +254,7 @@ namespace stepperCalculator
                 MaxAcceleration = 500,
                 MaxSpeedPerMM = 300,
                 StepsPerMM = _stepsmmx
-            });
+            }, "X");
 
 
             _yAxisCalculator = new MovementCalculator(new AxisConfiguration
@@ -240,14 +262,14 @@ namespace stepperCalculator
                 MaxAcceleration = 500,
                 MaxSpeedPerMM = 300,
                 StepsPerMM = _stepsmmy
-            });
+            },"Y");
 
             _eAxisCalculator = new MovementCalculator(new AxisConfiguration
             {
                 MaxAcceleration = 15,
                 MaxSpeedPerMM = 20,
                 StepsPerMM = _stepsmme
-            });
+            },"E");
         }
     }
 }

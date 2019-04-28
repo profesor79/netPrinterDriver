@@ -8,23 +8,25 @@ namespace stepperCalculator
     public class MovementCalculator
     {
         private readonly AxisConfiguration _axisConf;
+        private readonly string _axisName;
         private int _stepsNumber;
-        private double _traveledDistance;
-        private double _timeBeforeStep;
+        private decimal _traveledDistance;
+        private decimal _timeBeforeStep;
         private bool _acceleratedToMaxSpeed;
 
         private Movement _move = new Movement();
-        private double _speed;
-        private double _distance;
+        private decimal _speed;
+        private decimal _distance;
         private bool _onlyOneStep;
 
 
-        public MovementCalculator(AxisConfiguration axisConf)
+        public MovementCalculator(AxisConfiguration axisConf, string axisName)
         {
             _axisConf = axisConf;
+            _axisName = axisName;
         }
 
-        public Movement CalculateSteps(double startPosition, double stop, double maxSpeedMmPerSec)
+        public Movement CalculateSteps(decimal startPosition, decimal stop, decimal maxSpeedMmPerSec)
         {
             ResetValues();
             Console.WriteLine(
@@ -110,7 +112,7 @@ namespace stepperCalculator
             _distance = 0;
         }
 
-        private void CalculateBodySteps(double startPosition, double decelerationStepsSpeedAfterMove)
+        private void CalculateBodySteps(decimal startPosition, decimal decelerationStepsSpeedAfterMove)
         {
             var distanceToMoveWithMaxSpeed = _distance - 2 * _traveledDistance;
 
@@ -138,7 +140,8 @@ namespace stepperCalculator
                             : startPosition - _stepsNumber / _axisConf.StepsPerMM,
                     StepTime = maxSpeedCycleTime,
                     SpeedAfterMove = bodyMovementSpeed,
-                    StepNumber = _stepsNumber
+                    StepNumber = _stepsNumber,
+                    AxisName = _axisName
                 };
 
                 _move.BodySteps.Add(stepData);
@@ -148,7 +151,7 @@ namespace stepperCalculator
             _move.TotalTime += maxSpeedCycleTime * stepsCountWithMaxSpeed;
         }
 
-        private List<StepData> DecelarationStepData(double stop)
+        private List<StepData> DecelarationStepData(decimal stop)
         {
             var deceleration = new List<StepData>();
             var decelerationStep = 0;
@@ -161,7 +164,8 @@ namespace stepperCalculator
                     StepNumber = -step.StepNumber,
                     SpeedAfterMove = step.SpeedAfterMove,
                     PositionAfterStep = (stop - decelerationStep / _axisConf.StepsPerMM),
-                    TimeStamp = step.TimeStamp
+                    TimeStamp = step.TimeStamp,
+                    AxisName = _axisName
                 };
 
                 deceleration.Insert(0, decStep);
@@ -172,9 +176,9 @@ namespace stepperCalculator
             return deceleration;
         }
 
-        private bool Accelerating(double startPosition,
-            double distance,
-            double speed,
+        private bool Accelerating(decimal startPosition,
+            decimal distance,
+            decimal speed,
             bool direction,
             Movement move
         )
@@ -185,12 +189,12 @@ namespace stepperCalculator
             var distanceAfterStep = _stepsNumber / _axisConf.StepsPerMM;
 
 
-            var speedAfterDistance = Math.Sqrt(2 * _axisConf.MaxAcceleration * distanceAfterStep);
+            var speedAfterDistance = (decimal) Math.Sqrt((double) (2 * _axisConf.MaxAcceleration * distanceAfterStep));
             accelerating = speed >= speedAfterDistance;
 
             if (!accelerating) return accelerating;
 
-            var timeCaculatedFromStart = Math.Sqrt(2 * distanceAfterStep / _axisConf.MaxAcceleration);
+            decimal timeCaculatedFromStart = (decimal) Math.Sqrt((double) (2 * distanceAfterStep / _axisConf.MaxAcceleration));
             var cycleTime = timeCaculatedFromStart - _timeBeforeStep;
             var stepData = new StepData
             {
@@ -199,7 +203,8 @@ namespace stepperCalculator
                     (direction) ? distanceAfterStep + startPosition : startPosition - distanceAfterStep,
                 StepTime = cycleTime,
                 SpeedAfterMove = speedAfterDistance,
-                StepNumber = _stepsNumber
+                StepNumber = _stepsNumber,
+                AxisName = _axisName
             };
 
             // check if we need to brake

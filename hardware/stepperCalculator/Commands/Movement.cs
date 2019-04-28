@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace stepperCalculator
 {
@@ -7,8 +8,19 @@ namespace stepperCalculator
         public List<StepData> HeadSteps { get; set; } = new List<StepData>();
         public List<StepData> BodySteps { get; set; } = new List<StepData>();
         public List<StepData> TailSteps { get; set; } = new List<StepData>();
-        public double TotalTime { get; set; } = 0;
-        public double SpeedFactor { get; set; }
+
+        public List<StepData> AllSteps()
+        {
+            var steps = new List<StepData>();
+            steps.AddRange(HeadSteps);
+            steps.AddRange(BodySteps);
+            steps.AddRange(TailSteps);
+
+            return steps;
+        }
+
+        public decimal TotalTime { get; set; } = 0;
+        public decimal SpeedFactor { get; set; }
         public bool Direction { get; set; } = true;
     }
 }
